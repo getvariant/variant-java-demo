@@ -32,14 +32,14 @@ If all went well, the server console output should look something like this:
 ```
 2. Install Maven dependencies
 
-Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository. Assuming `/lib` to be your current directory:
+Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository: 
 
 ```
-% mvn install:install-file -Dfile=variant-java-client-0.8.0.jar -DgroupId=com.variant -DartifactId=java-client -Dversion=0.7.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.8.0 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=variant-core-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.7.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-core-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.8.0 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=variant-java-client-servlet-adapter-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=1.0.0 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.8.0 -Dpackaging=jar
 ```
 
 3. Start the demo application:
