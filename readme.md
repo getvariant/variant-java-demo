@@ -18,7 +18,7 @@ Note, that Variant server comes pre-configured to run the demo application out-o
 
 If all went well, the server console output should look something like this:
 ```
-[info] c.v.c.u.VariantConfigLoader - Found config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.7.1/conf/variant.conf]
+[info] c.v.c.u.VariantConfigLoader - Found config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.8.0/conf/variant.conf]
 [info] c.v.s.s.SchemaDeployerFromFS - Deployed schema [petclinic], ID [1CC06C031F2D3F85]:
    NewOwnerTest:[outOfTheBox (control), tosCheckbox, tosAndMailCheckbox] (ON)
 [info] c.v.s.b.VariantServerImpl - Variant Experiment Server release 0.7.1 bootstrapped on :5377/variant in 00:00.084.[/crayon]
@@ -35,11 +35,11 @@ If all went well, the server console output should look something like this:
 Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository. Assuming `/lib` to be your current directory:
 
 ```
-% mvn install:install-file -Dfile=variant-java-client-0.7.1.jar -DgroupId=com.variant -DartifactId=java-client -Dversion=0.7.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=variant-java-client-0.8.0.jar -DgroupId=com.variant -DartifactId=java-client -Dversion=0.7.1 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=variant-core-0.7.1.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.7.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=variant-core-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.7.1 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=java-client-servlet-adapter-1.0.0.jar -DgroupId=com.variant -DartifactId=java-client-servlet-adapter -Dversion=1.0.0 -Dpackaging=jar
+% mvn install:install-file -Dfile=variant-java-client-servlet-adapter-0.8.0.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=1.0.0 -Dpackaging=jar
 ```
 
 3. Deploy the Demo Application
