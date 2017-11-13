@@ -32,7 +32,7 @@ If all went well, the server console output should look something like this:
 ```
 2. Install Maven dependencies
 
-Variant Demo application is built on top of the [servlet adapter](/servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository. Assuming `/lib` to be your current directory:
+Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository. Assuming `/lib` to be your current directory:
 
 ```
 % mvn install:install-file -Dfile=variant-java-client-0.7.1.jar -DgroupId=com.variant -DartifactId=java-client -Dversion=0.7.1 -Dpackaging=jar
@@ -44,7 +44,7 @@ Variant Demo application is built on top of the [servlet adapter](/servlet-adapt
 
 3. Deploy the Demo Application
 
-Out-of-the-box, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the `server.url` property in the Variant client configuration file [variant-java-servlet-adapter/servlet-adapter-demo/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/resources/variant.conf).
+Out-of-the-box, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the `server.url` property in the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf).
 
 4. Change to the demo application directory:
 ```
