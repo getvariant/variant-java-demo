@@ -28,7 +28,7 @@ If all went well, the server console output should look something like this:
 
 1. Clone This Repository:
 ```
-% git clone https://github.com/getvariant/variant-java-servlet-adapter.git
+% git clone https://github.com/getvariant/variant-java-demo.git
 ```
 2. Install Maven dependencies
 
