@@ -114,30 +114,36 @@ Any online experiment starts with the implementation of variant experiences that
 // See https://github.com/getvariant/variant-java-servlet-adapter/tree/master/servlet-adapter-demo
 // for details.
 //
-// Copyright © 2015-2016 Variant, Inc. All Rights Reserved.
+// Copyright © 2015-2017 Variant, Inc. All Rights Reserved.
 
 {
-   'meta':{                                                                                 // 10
+   'meta':{
       'name':'petclinic',
       'comment':'Experiment schema for the Pet Clinic demo application'
    },
    'states':[                                                
      { 
        // The New Owner page used to add owner at /petclinic/owners/new 
-       'name':'newOwner',                                     
-       'parameters': {
-           'path':'/petclinic/owners/new'
-        }                                                                                   // 20
+       'name':'newOwner',
+       'parameters': [
+            {
+               'name':'path',
+               'value':'/petclinic/owners/new'
+            }
+        ]
      },                                                    
      {  
        // The Owner Detail page. Note that owner ID is in the path,
         // so we have to use regular expression to match.
-       'name':'ownerDetail',          
-       'parameters': {
-           'path':'/petclinic/owners/~\\d+/'
-        }                                                    
+       'name':'ownerDetail',
+       'parameters': [
+            {
+               'name':'path',
+               'value':'/petclinic/owners/~\\d+/'
+            }
+        ]
      }                                                     
-   ],                                                                                       // 30
+   ],                                                        
    'tests':[                                                 
       {                                                      
          'name':'NewOwnerTest',
@@ -147,7 +153,7 @@ Any online experiment starts with the implementation of variant experiences that
                'name':'outOfTheBox',                                   
                'weight':1,                                  
                'isControl':true                              
-            },                                                                              // 40
+            },                                               
             {                                                
                'name':'tosCheckbox',                                   
                'weight':1                                   
@@ -157,42 +163,52 @@ Any online experiment starts with the implementation of variant experiences that
                'weight':1                                   
             }                                               
          ],                                                  
-         'onStates':[                                                                       // 50
+         'onStates':[                                         
             {                                                
                'stateRef':'newOwner',                    
                'variants':[                                  
                   {                                          
-                     'experienceRef': 'tosCheckbox',                   
-                   'parameters': {
-                        'path':'/owners/new/variant/newOwnerTest.tosCheckbox'         
-                     }                                          
+                     'experienceRef': 'tosCheckbox',
+                     'parameters': [
+                        {
+                           'name':'path',
+                           'value':'/owners/new/variant/newOwnerTest.tosCheckbox'
+                        }
+                     ]
                   },                                         
-                  {                                                                         // 60
+                  {                                          
                      'experienceRef': 'tosAndMailCheckbox',                   
-                   'parameters': {
-                        'path':'/owners/new/variant/newOwnerTest.tosAndMailCheckbox'         
-                     }                                          
+                     'parameters': [
+                        {
+                           'name':'path',
+                           'value':'/owners/new/variant/newOwnerTest.tosAndMailCheckbox'
+                        }
+                     ]
                   }                                          
                ]                                             
             },
             {                                                
                'stateRef':'ownerDetail',                            
-               'isNonvariant': true                                                         // 70
+               'isNonvariant': true
             }                                                
          ],
          'hooks':[
             {
+               // Disqualifies all Firefox traffic.
                'name':'FirefoxDisqualifier',
                'class':'com.variant.server.ext.demo.FirefoxDisqualHook'
             },
             {
+               // Assigns all Chrome traffic to the control experience
                'name':'ChromeTargeter',
-               'class':'com.variant.server.ext.demo.ChromeTargetingHook'                    // 80
+               'class':'com.variant.server.ext.demo.ChromeTargetingHook'
             }
          ]
       }                                                     
    ]                                                         
-}                                                  
+}                         
+      
+
 ```
 Note, that Variant server comes out-of-the-boxwith this schema already in the `schemata` directory.
 
