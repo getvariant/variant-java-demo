@@ -2,9 +2,15 @@
 
 # Variant Demo Application
 ### Release 1.0.0
-#### Requires: Java 7 or later, Java Servlet API 2.4 or later, Maven
+#### Requires: Variant Experiment Server 0.8, Java 7 or later, Java Servlet API 2.4 or later, Maven
 
-__Variant demo application__ is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC Web framework. This doesn't mean that your application must also use Spring MVC — we're using it for demonstration purposes only, as it provides the opportunity to demonstrate both Variant's [bare Java client](http://getvariant.com/docs/0-7/clients/variant-java-client/#section-2) as well as the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter).
+This __Variant Demo Application__ demonstrates instrumentation of a basic A/B test on a Java Wep application, using [Variant Experiment Server](http://www.getvariant.com/docs/0-8/experiment-server/user-guide/). The following instructions will help you
+* Download and start Variant server;
+* Clone and deploy this demo application on your local system;
+* Step through the instrumented experiments;
+* Understand the finer points of the demo.
+
+Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC Web framework. This doesn't mean that your application must also use Spring MVC — we're using it for demonstration purposes only, as it provides the opportunity to demonstrate both Variant's [bare Java client](http://getvariant.com/docs/0-7/clients/variant-java-client/#section-2) as well as the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter).
 
 ## 1. Start Variant Server
 
