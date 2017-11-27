@@ -1,6 +1,6 @@
 ![Variant Logo](http://www.getvariant.com/wp-content/uploads/2016/07/VariantLogoSquare-100.png)
 
-# Variant Demo Application
+# Variant Experiment Server Demo Application (Java Server Stack)
 ### Release 1.0.0
 #### Requires: Variant Experiment Server 0.8, Java 7 or later, Java Servlet API 2.4 or later, Maven
 
