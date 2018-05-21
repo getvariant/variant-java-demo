@@ -33,30 +33,31 @@ PetClinic :: a Spring Framework demonstration
     <%--                             Variant Demo start                              --%>
     <%-- --------------------------------------------------------------------------- --%>
     
-    <script src="http://getvariant.com/js/variant-0.7.1.js"></script>
+    <script src="http://getvariant.staging.wpengine.com/js/variant.js"></script>
 
     <%@ page import="com.variant.client.StateRequest" %>
     <%@ page import="com.variant.client.Session" %>
     <%@ page import="com.variant.client.servlet.VariantFilter" %>
     <%@ page import="com.variant.client.servlet.demo.PetclinicVariantFilter" %>
     <%
-        // If we're on an instrumented page PetclinicVariantFilter has put current Variant session in HTTP request.
-        Session varSession = (Session) request.getAttribute(VariantFilter.VARIANT_SESSION_ATTR_NAME);
-        if (varSession != null) {
+        // If we're on an instrumented page PetclinicVariantFilter has put current Variant state request in HTTP request.
+        StateRequest stateRequest = (StateRequest) request.getAttribute(VariantFilter.VARIANT_REQUEST_ATTR_NAME);
+        if (stateRequest != null) {
+        	Session varSession = stateRequest.getSession();
     %>
 
 	    <script>
-	 		variant.boot({
-	   			url:"<%=varSession.getConfig().getString("server.url")%>",
-	   			sid:"<%=varSession.getId()%>",
-				cid:"<%=varSession.getConnection().getId()%>",
-	   			success: function(data, textStatus) {
-	   				console.log("POST returned status '" + textStatus + "' and body '" + data + "'");}
-			});
-	   
+	        var ssn;
+	        var variantConn = variant.connect(
+	        		"variant:localhost:5377/variant:petclinic",
+	        		function(connection) {
+			          ssn = connection.getSessionById("<%=varSession.getId()%>");
+			        });
+	        	   
 			$(document).ready(function() {   
 	   			$(':submit').click(function() {
-	   			new variant.Event("CLICK", $(this).html()).send();   
+	   			console.log("Ready to fire event for session " + sid.id);
+	   			//new variant.Event("CLICK", $(this).html()).send();   
 	  		 });
 		});
 	    </script>
