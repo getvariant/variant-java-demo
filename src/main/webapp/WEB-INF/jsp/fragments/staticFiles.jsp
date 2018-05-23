@@ -47,17 +47,22 @@ PetClinic :: a Spring Framework demonstration
     %>
 
 	    <script>
-	        var ssn;
-	        var variantConn = variant.connect(
-	        		"variant:localhost:5377/variant:petclinic",
-	        		function(connection) {
-			          ssn = connection.getSessionById("<%=varSession.getId()%>");
-			        });
+	        var variantSession = null;
+	        variant.connect(
+	        	"variant:localhost:5377/variant:petclinic",
+	        	function(conn) {
+			       conn.getSessionById(
+			       	  "<%=varSession.getId()%>",
+			          function(session) {
+			             variantSession = session;
+			          }
+			       );
+			    }
+		    );
 	        	   
 			$(document).ready(function() {   
 	   			$(':submit').click(function() {
-	   			console.log("Ready to fire event for session " + sid.id);
-	   			//new variant.Event("CLICK", $(this).html()).send();   
+	   			variantSession.triggerEvent(new variant.Event("CLICK", $(this).html()));   
 	  		 });
 		});
 	    </script>
