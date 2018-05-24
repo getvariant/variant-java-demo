@@ -33,7 +33,7 @@ PetClinic :: a Spring Framework demonstration
     <%--                             Variant Demo start                              --%>
     <%-- --------------------------------------------------------------------------- --%>
     
-    <script src="http://getvariant.staging.wpengine.com/js/variant.js"></script>
+    <script src="http://getvariant.staging.wpengine.com/js/variant-0.8.1.js"></script>
 
     <%@ page import="com.variant.client.StateRequest" %>
     <%@ page import="com.variant.client.Session" %>
@@ -48,9 +48,11 @@ PetClinic :: a Spring Framework demonstration
 
 	    <script>
 	        var variantSession = null;
+	        // Open a connection to Variant server.
 	        variant.connect(
 	        	"variant:localhost:5377/variant:petclinic",
 	        	function(conn) {
+        	       // Fetch existing Variant session.
 			       conn.getSessionById(
 			       	  "<%=varSession.getId()%>",
 			          function(session) {
@@ -59,7 +61,8 @@ PetClinic :: a Spring Framework demonstration
 			       );
 			    }
 		    );
-	        	   
+
+			// onSubmit listener sends the CLICK event.	        	   
 			$(document).ready(function() {   
 	   			$(':submit').click(function() {
 	   			variantSession.triggerEvent(new variant.Event("CLICK", $(this).html()));   
