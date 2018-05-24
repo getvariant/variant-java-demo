@@ -16,6 +16,7 @@
         </encoder>
     </appender>
 
+	<logger name="org.apache" level="error"/>
 	<logger name="org.hibernate" level="warn"/>
     <logger name="org.springframework.samples.petclinic" level="warn"/>
 	<logger name="com.github.dandelion" level="error"/>
