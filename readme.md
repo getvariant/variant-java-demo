@@ -2,15 +2,19 @@
 
 # Variant Experiment Server Demo Application
 ### Release 1.0.0
-#### Requires: Variant Experiment Server 0.8, Java 7 or later, Java Servlet API 2.4 or later, Maven
+#### Requires: 
+* Variant Java Client 0.9.x 
+* Variant Experience Server 0.9.x 
+* Java Servlet API 2.4 or later 
+* Java 7 or later.
 
-This __Variant Demo Application__ demonstrates instrumentation of a basic A/B test on a Java Wep application, using [Variant Experiment Server](http://www.getvariant.com/docs/0-8/experiment-server/user-guide/). The following instructions will help you
+This __Variant Demo Application__ demonstrates instrumentation of a basic A/B test on a Java Wep application, using [Variant Experience Server](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/). The following instructions will help you to
 * Download and start Variant server;
 * Clone and deploy this demo application on your local system;
 * Step through the instrumented experiments;
 * Understand the finer points of the demo.
 
-Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC Web framework. This doesn't mean that your application must also use Spring MVC — we're using it for demonstration purposes only, as it provides the opportunity to demonstrate both Variant's [bare Java client](http://getvariant.com/docs/0-7/clients/variant-java-client/#section-2) as well as the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter).
+Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC Web framework. This doesn't mean that your application must also use Spring MVC — we're using it for demonstration purposes only, as it provides the opportunity to demonstrate Variant's [Java client](http://getvariant.com/resources/docs/0-9/clients/java-client) as well as the [servlet adapter for Variant Java client](https://github.com/getvariant/variant-java-servlet-adapter).
 
 ## 1. Start Variant Server
 
@@ -24,10 +28,13 @@ Note, that Variant server comes pre-configured to run the demo application out-o
 
 If all went well, the server console output should look something like this:
 ```
-[info] c.v.c.u.VariantConfigLoader - Found config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.8.0/conf/variant.conf]
-[info] c.v.s.s.SchemaDeployerFromFS - Deployed schema [petclinic], ID [1CC06C031F2D3F85]:
+[info] 19:10:12.717 c.v.c.c.ConfigLoader - Found  config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.9.0/conf/variant.conf]
+[info] 19:10:14.091 c.v.s.s.SchemaDeployerFileSystem - Mounted schemata directory [/private/tmp/demo/variant-server-0.9.0/schemata]
+[info] 19:10:14.092 c.v.s.s.SchemaDeployerFileSystem - Deploying schema from file [/private/tmp/demo/variant-server-0.9.0/schemata/petclinic-schema.json]
+[info] 19:10:14.285 c.v.s.s.ServerFlusherService - Registered event logger [com.variant.server.api.EventFlusherAppLogger] for schema [petclinic]
+[info] 19:10:14.312 c.v.s.s.SchemaDeployerFileSystem - Deployed schema [petclinic] ID [38EFB1D4B56FCA01], from [petclinic-schema.json]:
    NewOwnerTest:[outOfTheBox (control), tosCheckbox, tosAndMailCheckbox] (ON)
-[info] c.v.s.b.VariantServerImpl - Variant Experiment Server release 0.7.1 bootstrapped on :5377/variant in 00:00.084.[/crayon]
+[info] 19:10:14.317 c.v.s.b.VariantServerImpl - [431] Variant Experiment Server release 0.9.0 bootstrapped on :5377/variant in 00:00.247
 ```
 
 ## 2. Deploy the Demo Appliction
