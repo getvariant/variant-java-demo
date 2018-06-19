@@ -78,11 +78,11 @@ The demo experiment is instrumented on the `New Owner` page. You navigate to it 
 
 <br>
 
-The demo experiment introduces two new variations of this page called `tosCheckBox` and `tos&mailCheckbox`, as illustrated below.
+The demo experiment introduces two variants of this page called `tosCheckBox` and `tos&mailCheckbox`, as illustrated below.
 
 | <img src="http://www.getvariant.com/wp-content/uploads/2015/11/tosCheckbox-1024x954.png" alt="tosCheckbox" width="610" height="568" /> | 
 | ------------- | 
-| __Fig. 2. The `tosCheckBox` variant adds to the control experience<br>the terms of service. check box.__ |
+| __Fig. 2. The `tosCheckBox` variant adds the terms of service check box.__ |
 
 <br>
 
@@ -92,9 +92,9 @@ The demo experiment introduces two new variations of this page called `tosCheckB
  
 <br>
 
-The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the form and ended up on the Owner Information page to those who came to the New Owner page. 
+The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
 
-In order to demonstrate the power of [Variant Server's Extension API](http://getvariant.com/docs/0-7/experiment-server/server-user-guide/#section-8), the demo application is configured with two user hooks: [`FirefoxDisqualifier`](https://github.com/getvariant/variant-server-extapi/blob/master/server-extapi-demo/src/main/java/com/variant/server/ext/demo/FirefoxDisqualHook.java) and [`ChromeTargeter`](https://github.com/getvariant/variant-server-extapi/blob/master/server-extapi-demo/src/main/java/com/variant/server/ext/demo/ChromeTargetingHook.java). The former disqualifies all traffic coming from a Firefox browser, and the latter targets all traffic coming from a Chrome browser to the control experience. 
+In order to demonstrate the power of [Variant Server's Extension API](http://getvariant.com/resources/docs/0-9/experience-server/user-guide/#section-8), the demo application is configured with two user hooks: [`FirefoxDisqualifier`](https://github.com/getvariant/variant-server-extapi/blob/master/server-extapi-demo/src/main/java/com/variant/server/ext/demo/FirefoxDisqualHook.java) and [`ChromeTargeter`](https://github.com/getvariant/variant-server-extapi/blob/master/server-extapi-demo/src/main/java/com/variant/server/ext/demo/ChromeTargetingHook.java). The former disqualifies all traffic coming from a Firefox browser, and the latter targets all traffic coming from a Chrome browser to the control experience. 
 
 If you visit the Petclinic site using a Firefox browser, your experience will be equivalent to there being no experiment at all: you will always see the existing experience and your visit to the New Owner page will not trigger Variant events. Similarly, if you use a Chrome browser, you will always see the existing experience, but when you touch instrumented pages Variant will generate and log experiment related events. Although this behavior may seem contrived, it demonstrates how easy it is to inject experiment qualification or targeting semantics into your Variant server.
 
