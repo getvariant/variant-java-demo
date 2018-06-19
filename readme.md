@@ -207,9 +207,9 @@ Any online experiment starts with the implementation of variant experiences that
          ],
          'hooks':[
             {
-               // Disqualifies all Firefox traffic.
-               'name':'FirefoxDisqualifier',
-               'class':'com.variant.server.ext.demo.FirefoxDisqualHook'
+               // Disqualifies all Safari traffic.
+               'name':'SafariDisqualifier',
+               'class':'com.variant.server.ext.demo.SafariDisqualHook'
             },
             {
                // Assigns all Chrome traffic to the control experience
