@@ -37,8 +37,7 @@ PetClinic :: a Spring Framework demonstration
 
     <%@ page import="com.variant.client.StateRequest" %>
     <%@ page import="com.variant.client.Session" %>
-    <%@ page import="com.variant.client.servlet.VariantFilter" %>
-    <%@ page import="com.variant.client.servlet.demo.PetclinicVariantFilter" %>
+    <%@ page import="com.variant.client.servlet.demo.VariantFilter" %>
     <%
         // If we're on an instrumented page PetclinicVariantFilter has put current Variant state request in HTTP request.
         StateRequest stateRequest = (StateRequest) request.getAttribute(VariantFilter.VARIANT_REQUEST_ATTR_NAME);

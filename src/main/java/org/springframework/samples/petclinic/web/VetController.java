@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
@@ -50,7 +51,22 @@ public class VetController {
         model.put("vets", vets);
         return "vets/vetList";
     }
-    
+
+    /// --------------  ViewAsJsonFix  ----------------- \\\ 
+    @RequestMapping(value={"/vets.xml","/vets__ViewAsJsonFix.html"})
+    public String showVetListFix(Map<String, Object> model) {
+        // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
+        // so it is simpler for Object-Xml mapping
+    	
+    	// Simulate an exception with probability 0.5.
+    	if (new Random().nextFloat() > 0.5)
+    		throw new RuntimeException("Simmulated Uncaught Runtime Exception");
+        Vets vets = new Vets();
+        vets.getVetList().addAll(this.clinicService.findVets());
+        model.put("vets", vets);
+        return "vets/vetList__ViewAsJsonFix.fix";
+    }
+
     @RequestMapping("/vets.json")
     public @ResponseBody Vets showResourcesVetList() {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
@@ -59,6 +75,5 @@ public class VetController {
         vets.getVetList().addAll(this.clinicService.findVets());
         return vets;
     }
-
 
 }
