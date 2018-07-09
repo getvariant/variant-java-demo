@@ -182,7 +182,8 @@ public class VariantFilter implements Filter {
 		boolean isForwarding = false;
 		
 		try {
-			String path = httpRequest.getServletPath();
+			
+			String path = httpRequest.getRequestURI();
 			LOG.trace("VariantFilter for path [" + path + "]");
 
 			// If we're not connected, try to reconnect.
