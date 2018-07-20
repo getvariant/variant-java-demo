@@ -176,12 +176,12 @@ public class VariantFilter implements Filter {
 
 		String resolvedPath = null;
 		boolean isForwarding = false;
-		
+		String path = httpRequest.getRequestURI();
+
+		LOG.trace("VariantFilter for path [" + path + "]");
+
 		try {
 			
-			String path = httpRequest.getRequestURI();
-			LOG.trace("VariantFilter for path [" + path + "]");
-
 			// If we're not connected, try to reconnect.
 			if (connection == null) {
 				connection = client.connectTo(schemaName);
@@ -192,7 +192,6 @@ public class VariantFilter implements Filter {
 			variantSsn = connection.getOrCreateSession(httpRequest);
 			
 			// Is this request's URI mapped in Variant?
-//			String url = VariantWebUtils.requestUrl(httpRequest);
 			State state = StateSelectorByRequestPath.select(variantSsn.getSchema(), path);
 			
 			if (state == null) {
@@ -226,7 +225,7 @@ public class VariantFilter implements Filter {
 		}
 		catch (VariantException e) {
 
-			LOG.error("Variant exception for path [" +  httpRequest.getPathInfo() + "] : " + e.getMessage());
+			LOG.error("Variant exception for path [" +  path + "] : " + e.getMessage());
 			
 			isForwarding = false;
 			if (stateRequest != null) stateRequest.setStatus(StateRequestStatus.FAIL);
@@ -253,7 +252,7 @@ public class VariantFilter implements Filter {
 				if (sve != null) sve.getParameterMap().put("HTTP_STATUS", Integer.toString(httpResponse.getStatus()));
 			}
 			catch (VariantException e) {
-				LOG.error("Variant exception for path [" + httpRequest.getPathInfo() + "] : " + e.getMessage());
+				LOG.error("Variant exception for path [" + path + "] : " + e.getMessage());
 				
 				stateRequest.setStatus(StateRequestStatus.FAIL);
 			}
@@ -265,6 +264,7 @@ public class VariantFilter implements Filter {
 				stateRequest.setStatus(StateRequestStatus.FAIL);
 			}
 			finally {
+				stateRequest.getStateVisitedEvent().getParameterMap().put("HTTP_STATUS", String.valueOf(httpResponse.getStatus()));
 				stateRequest.commit(httpResponse);
 			}
 		}
