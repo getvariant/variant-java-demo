@@ -264,7 +264,8 @@ public class VariantFilter implements Filter {
 				stateRequest.setStatus(StateRequestStatus.FAIL);
 			}
 			finally {
-				stateRequest.getStateVisitedEvent().getParameterMap().put("HTTP_STATUS", String.valueOf(httpResponse.getStatus()));
+				// The following line throws NPE on Safari, most likely to disqualification => no SVE.
+				//stateRequest.getStateVisitedEvent().getParameterMap().put("HTTP_STATUS", String.valueOf(httpResponse.getStatus()));
 				stateRequest.commit(httpResponse);
 			}
 		}

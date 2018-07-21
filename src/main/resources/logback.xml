@@ -20,7 +20,7 @@
 	<logger name="org.hibernate" level="warn"/>
     <logger name="org.springframework.samples.petclinic" level="warn"/>
 	<logger name="com.github.dandelion" level="error"/>
-    <logger name="com.variant" level="trace"/>
+    <logger name="com.variant" level="info"/>
          
     <root level="warn">
         <appender-ref ref="console"/>
