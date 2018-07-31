@@ -23,7 +23,7 @@ import com.variant.client.servlet.ServletVariantClient;
 import com.variant.client.servlet.ServletVariantException;
 import com.variant.client.servlet.util.StateSelectorByRequestPath;
 import com.variant.core.StateRequestStatus;
-import com.variant.core.VariantEvent;
+import com.variant.core.TraceEvent;
 import com.variant.core.schema.State;
 
 /**
@@ -248,7 +248,7 @@ public class VariantFilter implements Filter {
 		if (stateRequest != null) {
 			try {
 				// Add some extra info to the state visited event(s)
-				VariantEvent sve = stateRequest.getStateVisitedEvent();
+				TraceEvent sve = stateRequest.getStateVisitedEvent();
 				if (sve != null) sve.getParameterMap().put("HTTP_STATUS", Integer.toString(httpResponse.getStatus()));
 			}
 			catch (VariantException e) {
