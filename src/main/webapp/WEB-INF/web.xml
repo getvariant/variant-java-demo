@@ -127,7 +127,7 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
         <filter-class>com.variant.client.servlet.demo.PetclinicVariantFilter</filter-class> 
         <init-param>
            <param-name>schema</param-name>
-           <param-value>petclinic_experiments</param-value>
+           <param-value>petclinic</param-value>
         </init-param>
      </filter>
      

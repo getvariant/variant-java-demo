@@ -16,7 +16,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
@@ -52,7 +51,7 @@ public class VetController {
         return "vets/vetList";
     }
 
-    /// --------------  ViewAsJsonFix  ----------------- \\\ 
+    /* / --------------  ViewAsJsonFix  ----------------- \\\ 
     @RequestMapping(value={"/vets.xml","/vets__ViewAsJsonFix.html"})
     public String showVetListFix(Map<String, Object> model) {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
@@ -66,7 +65,8 @@ public class VetController {
         model.put("vets", vets);
         return "vets/vetList__ViewAsJsonFix.fix";
     }
-
+    */
+     
     @RequestMapping("/vets.json")
     public @ResponseBody Vets showResourcesVetList() {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 

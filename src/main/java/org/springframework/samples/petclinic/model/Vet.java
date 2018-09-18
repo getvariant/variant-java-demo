@@ -15,10 +15,12 @@
  */
 package org.springframework.samples.petclinic.model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -49,7 +51,6 @@ public class Vet extends Person {
             inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties;
 
-
     protected void setSpecialtiesInternal(Set<Specialty> specialties) {
         this.specialties = specialties;
     }
@@ -76,4 +77,14 @@ public class Vet extends Person {
         getSpecialtiesInternal().add(specialty);
     }
 
+    // Variant demo. Emulate a rate, rather than getting it from the DB.
+    // Throw an exception 10% of the time.
+    public String getRate() {
+    	Random rand = new Random();
+    	if (rand.nextInt(10) == 0) 
+    		throw new RuntimeException("Simulated exception in feature fix. Fires randomly with probability of 0.1");
+    	int rate = rand.nextInt(41) + 60;
+    	return new DecimalFormat("$#.00").format(rate);
+    }
+    
 }
