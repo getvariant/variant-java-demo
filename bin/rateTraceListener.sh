@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# Cycle in background and poll database for failed SVEs.
-# Once detected, offline the test and exit;
+# Poll database for failed SVEs. Once detected, offline the test and exit;
 #
 
 
