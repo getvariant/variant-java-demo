@@ -83,8 +83,8 @@ public class Vet extends Person {
 
     	Random rand = new Random();
     	
-    	if (rand.nextInt(10) == 0) 
-    		throw new RuntimeException("Simulated exception in feature fix. Fires randomly with probability of 0.1");
+    	//if (rand.nextInt(10) == 0) 
+    	//	throw new RuntimeException("Simulated exception in feature fix. Fires randomly with probability of 0.1");
 
     	// Random hourly rate btwn 60 and 100.
     	return new DecimalFormat("$#.00").format(rand.nextInt(41) + 60);

@@ -5,6 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 
+<%@ page import="com.variant.client.servlet.demo.JspHelper" %>
+
 <html lang="en">
 
 
@@ -27,28 +29,12 @@
             </c:forEach>
             <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
         </datatables:column>
-      
-    <%@ page import="org.slf4j.*" %>
-    <%@ page import="com.variant.core.schema.*" %>
-    <%@ page import="com.variant.client.*" %>
-    <%@ page import="com.variant.client.servlet.VariantFilter" %>
-        
+              
     <%
-        // We may need a logger.
-        Logger log = LoggerFactory.getLogger("vetList.jsp");
-        StateRequest stateRequest = (StateRequest) request.getAttribute(VariantFilter.VARIANT_REQUEST_ATTR_NAME);
-
-		// We won't have the state request when the toggle is off.
-        if (stateRequest != null) {
-           
-	        // If we're on an instrumented page, VariantFilter has put current Variant state request in HTTP request.
-	        try {
-	              
-	    	    Test test = stateRequest.getSession().getSchema().getTest("VetsHourlyRateFeature");
-	        	Test.Experience exp = stateRequest.getLiveExperience(test);
-				if ("rateColumn".equals(exp.getName())) {
-				
-				// We're in the new feature - show the hourly rate column
+       JspHelper helper = new JspHelper(request, response);
+       
+       try {
+	       if (helper.isLiveExperienceInTest("VetsHourlyRateFeature","rateColumn")) {
     %>
     
         <datatables:column title="Hourly Rate">
@@ -56,22 +42,12 @@
         </datatables:column>
     
     
-    <% 
-	           }
-	         } 
-	    	 catch (Exception e) {
-	    	 	
-	    	 	// Something amiss with Variant instrumentation.
-	    	 	// Try to fail current request, if any.
-	    	 	try {
-					stateRequest.fail(response);
-	    	 		log.error("Variant threw unexpected exception", e); 
-	    	 	}
-	    	 	catch (Exception e2) {
-	    	 		log.error("Variant threw unexpected exception", e2); 
-	    	 	}
-	    	 }
-	     }
+    <%      
+              }
+           }
+           catch (Exception e) {
+              helper.failRequest();   
+           }
     %>
     
     </datatables:table>
