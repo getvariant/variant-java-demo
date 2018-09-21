@@ -18,7 +18,7 @@ Note, that this demo application is built with the popular [Pet Clinic webapp](h
 
 ## 1. Start Variant Server
 
-1. If you haven't done so yet, [download and install](http://www.getvariant.com/docs/0-7/experiment-server/reference/#section-1) Variant Experiment Server.
+1. If you haven't done so yet, [download and install](https://www.getvariant.com/resources/docs/0-9/experience-server/reference/#section-1) Variant Experiment Server.
 
 2. Start Variant server:
 ```
