@@ -28,13 +28,13 @@ Note, that Variant server comes pre-configured to run the demo application out-o
 
 If all went well, the server console output should look something like this:
 ```
-[info] 19:10:12.717 c.v.c.c.ConfigLoader - Found  config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.9.1/conf/variant.conf]
-[info] 19:10:14.091 c.v.s.s.SchemaDeployerFileSystem - Mounted schemata directory [/private/tmp/demo/variant-server-0.9.1/schemata]
-[info] 19:10:14.092 c.v.s.s.SchemaDeployerFileSystem - Deploying schema from file [/private/tmp/demo/variant-server-0.9.1/schemata/petclinic-schema.json]
+[info] 19:10:12.717 c.v.c.c.ConfigLoader - Found  config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.9.2/conf/variant.conf]
+[info] 19:10:14.091 c.v.s.s.SchemaDeployerFileSystem - Mounted schemata directory [/private/tmp/demo/variant-server-0.9.2/schemata]
+[info] 19:10:14.092 c.v.s.s.SchemaDeployerFileSystem - Deploying schema from file [/private/tmp/demo/variant-server-0.9.2/schemata/petclinic.schema]
 [info] 19:10:14.285 c.v.s.s.ServerFlusherService - Registered event logger [com.variant.server.api.EventFlusherAppLogger] for schema [petclinic]
-[info] 19:10:14.312 c.v.s.s.SchemaDeployerFileSystem - Deployed schema [petclinic] ID [38EFB1D4B56FCA01], from [petclinic-schema.json]:
+[info] 19:10:14.312 c.v.s.s.SchemaDeployerFileSystem - Deployed schema [petclinic] ID [38EFB1D4B56FCA01], from [petclinic.schema]:
    NewOwnerTest:[outOfTheBox (control), tosCheckbox, tosAndMailCheckbox] (ON)
-[info] 19:10:14.317 c.v.s.b.VariantServerImpl - [431] Variant Experiment Server release 0.9.1 bootstrapped on :5377/variant in 00:00.247
+[info] 19:10:14.317 c.v.s.b.VariantServerImpl - [431] Variant Experiment Server release 0.9.2 bootstrapped on :5377/variant in 00:00.247
 ```
 
 ## 2. Deploy the Demo Appliction
@@ -48,11 +48,11 @@ If all went well, the server console output should look something like this:
 Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository: 
 
 ```
-% mvn install:install-file -Dfile=lib/variant-java-client-0.9.1.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.2 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=lib/variant-core-0.9.1.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.9.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-core-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.9.2 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.1.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.1 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.2 -Dpackaging=jar
 ```
 
 3. Start the demo application:
