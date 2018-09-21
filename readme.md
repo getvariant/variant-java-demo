@@ -1,15 +1,15 @@
 ![Variant Logo](http://www.getvariant.com/wp-content/uploads/2016/07/VariantLogoSquare-100.png)
 
 # Variant Experiment Server Demo Application
-### Release 1.0.0
+### Release 0.9.2
 #### Requires: 
 * Variant Java Client 0.9.x 
 * Variant Experience Server 0.9.x 
 * Java Servlet API 2.4 or later 
-* Java 7 or later.
+* Java 8 or later.
 
-This __Variant Demo Application__ demonstrates instrumentation of a basic A/B test on a Java Wep application, using [Variant Experience Server](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/). The following instructions will help you to
-* Download and start Variant server;
+This __Variant Demo Application__ demonstrates instrumentation of two simple experience variations: an experiment and a concurrent feature toggle on a Java Wep application, using [Variant Experience Server](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/). The following instructions will help you to
+* Download, install and deploy Variant Experience Server;
 * Clone and deploy this demo application on your local system;
 * Step through the instrumented experiments;
 * Understand the finer points of the demo.
