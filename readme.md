@@ -8,13 +8,13 @@
 * Java Servlet API 2.4 or later 
 * Java 8 or later.
 
-This __Variant Demo Application__ demonstrates instrumentation of two simple experience variations: an experiment and a concurrent feature toggle on a Java Wep application, using [Variant Experience Server](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/). The following instructions will help you to
-* Download, install and deploy Variant Experience Server;
+This __Variant Demo Application__ demonstrates instrumentation of two simple experience variations: an experiment (A/B test) and a concurrent feature toggle on a Java Wep application. The following instructions will help you to
+* Download, install and deploy [Variant Experience Server](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/);
 * Clone and deploy this demo application on your local system;
-* Step through the instrumented experiments;
+* Step through the instrumented variations;
 * Understand the finer points of the demo.
 
-Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC Web framework. This doesn't mean that your application must also use Spring MVC — we're using it for demonstration purposes only, as it provides the opportunity to demonstrate Variant's [Java client](http://getvariant.com/resources/docs/0-9/clients/java-client) as well as the [servlet adapter for Variant Java client](https://github.com/getvariant/variant-java-servlet-adapter).
+Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC project. This doesn't mean that your application must also use Spring MVC. We are using it to demonstrate Variant's [Java client](http://getvariant.com/resources/docs/0-9/clients/java-client) as well as the [servlet adapter for Variant Java client](https://github.com/getvariant/variant-java-servlet-adapter).
 
 ## 1. Start Variant Server
 
