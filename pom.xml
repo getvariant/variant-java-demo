@@ -59,7 +59,10 @@
 
 	<dependencies>
 		
-        <!-- Variant Java Servlet adapter and its transitive dependencies -->
+        <!--  
+            Variant Java Servlet adapter and its transitive dependencies
+            These are available in this projects's lib/ directory.
+        -->
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client-servlet-adapter</artifactId>
