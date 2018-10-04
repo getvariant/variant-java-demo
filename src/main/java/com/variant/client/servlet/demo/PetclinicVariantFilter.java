@@ -14,6 +14,6 @@ public class PetclinicVariantFilter extends VariantFilter {
 	 */
 	@Override
 	protected void onSession(ServletRequest request, ServletResponse response, ServletSession ssn) {
-		ssn.setAttribute("user-agent", ((HttpServletRequest)request).getHeader("User-Agent"));
+		ssn.getAttributes().put("user-agent", ((HttpServletRequest)request).getHeader("User-Agent"));
 	}
 }

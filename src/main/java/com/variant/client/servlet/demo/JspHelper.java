@@ -1,5 +1,7 @@
 package com.variant.client.servlet.demo;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.variant.client.StateRequest;
 import com.variant.client.servlet.VariantFilter;
 import com.variant.core.StateRequestStatus;
-import com.variant.core.schema.Test;
 
 /**
  * Static helper methods to be called from JSPs.
@@ -23,9 +24,9 @@ public class JspHelper {
 	private final StateRequest stateRequest;
 	
 	public JspHelper(HttpServletRequest request, HttpServletResponse response) {
-		//this.request = request;
-		this.response = response;
+        // If we're on an instrumented page, VariantFilter has put current Variant state request in HTTP request.
         stateRequest = (StateRequest) request.getAttribute(VariantFilter.VARIANT_REQUEST_ATTR_NAME);
+		this.response = response;
 	}
 	
 	/**
@@ -34,16 +35,18 @@ public class JspHelper {
 	 */
 	public boolean isLiveExperienceInTest(String testName, String expName) {
 		
+		// Emulating closure with a boxed mutable.
+		AtomicBoolean result = new AtomicBoolean(false);
+		
 		// We won't have the state request if no Variant server.
         if (stateRequest != null) {
            
-	        // If we're on an instrumented page, VariantFilter has put current Variant state request in HTTP request.
-	        try {
-	              
-	    	    Test test = stateRequest.getSession().getSchema().getTest(testName);
-	        	Test.Experience exp = stateRequest.getLiveExperience(test);
-	        	// exp will be null if this variation is turned off.
-				return exp != null && expName.equals(exp.getName());
+	        try {	              
+	        	stateRequest.getSession().getSchema().getVariation(testName).ifPresent(
+	        		variation -> result.set(variation.getExperience(expName).isPresent())
+	        	);
+	        	        	
+	        	return result.get();
 	        } 
 	    	catch (Exception e) {
 	    	 	

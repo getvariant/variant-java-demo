@@ -12,7 +12,7 @@
 	<properties>
 
 		<!-- Generic properties -->
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -66,19 +66,19 @@
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client-servlet-adapter</artifactId>
-           <version>0.9.2</version>
+           <version>0.9.3</version>
         </dependency>
 		
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client</artifactId>
-           <version>0.9.2</version>
+           <version>0.9.3</version>
         </dependency>
 
       <dependency>
          <groupId>com.variant</groupId>
          <artifactId>variant-core</artifactId>
-         <version>0.9.2</version>
+         <version>0.9.3</version>
       </dependency>
 
        <dependency>
