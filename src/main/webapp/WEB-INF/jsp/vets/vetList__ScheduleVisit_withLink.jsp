@@ -6,7 +6,7 @@
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 
 <%@ page import="java.util.Optional" %>
-<%@ page import="com.variant.client.servlet.demo.JspHelper" %>
+<%@ page import="com.variant.client.servlet.demo.VariantJspHelper" %>
 
 <html lang="en">
 
@@ -20,6 +20,7 @@
     <h2>Veterinarians</h2>
 
     <datatables:table id="vets" data="${vets.vetList}" row="vet" theme="bootstrap2" cssClass="table table-striped" pageable="false" info="false">
+
         <datatables:column title="Name">
             <c:out value="${vet.firstName} ${vet.lastName}"></c:out>
         </datatables:column>
@@ -32,7 +33,7 @@
         </datatables:column>
               
     <%
-       JspHelper helper = new JspHelper(request, response);
+       VariantJspHelper helper = new VariantJspHelper(request, response);
        Optional<String> liveExperienceName = helper.getLiveExperienceInVariation("VetsHourlyRateFeature");
        
        try {
@@ -52,6 +53,10 @@
               helper.failRequest();   
            }
     %>
+
+        <datatables:column title="Availability">
+                <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule an appt</a>
+        </datatables:column>
     
     </datatables:table>
     
