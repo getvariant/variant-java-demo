@@ -17,7 +17,7 @@
 <div class="container">
     <jsp:include page="../fragments/bodyHeader.jsp"/>
 
-    <h2>Veterinarians with links</h2>
+    <h2>Veterinarians</h2>
 
     <datatables:table id="vets" data="${vets.vetList}" row="vet" theme="bootstrap2" cssClass="table table-striped" pageable="false" info="false">
 
@@ -39,6 +39,7 @@
        try {
            
 	       if (liveExperienceName.isPresent() && liveExperienceName.get().equals("rateColumn")) {
+	       
     %>
     
         <datatables:column title="Hourly Rate">

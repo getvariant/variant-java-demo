@@ -6,7 +6,7 @@
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 
 <%@ page import="java.util.Optional" %>
-<%@ page import="com.variant.client.servlet.demo.JspHelper" %>
+<%@ page import="com.variant.client.servlet.demo.VariantJspHelper" %>
 
 <html lang="en">
 
@@ -32,7 +32,7 @@
         </datatables:column>
               
     <%
-       JspHelper helper = new JspHelper(request, response);
+       VariantJspHelper helper = new VariantJspHelper(request, response);
        Optional<String> liveExperienceName = helper.getLiveExperienceInVariation("VetsHourlyRateFeature");
        
        try {

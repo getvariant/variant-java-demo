@@ -5,7 +5,7 @@
 
 
 export PGPASSWORD=variant
-variant_home=/tmp/server/variant-server-0.9.2
+variant_home=/tmp/server/variant-server-0.9.3
 feature_name=VetsHourlyRateFeature
 
 while true; do
@@ -24,7 +24,7 @@ while true; do
 		## In the future, we will simply say "ALTER VARIATION $feature_name OFFLINE"
 		## For now, just stream-edit the schema in place and let it hot-redeploy.
 		
-		sed -E "/${feature_name}/ s/$/ 'isOn':false,/" ${variant_home}/schemata/petclinic.schema > /tmp/foo
+		sed -E "/'name'.*${feature_name}/ s/$/ 'isOn':false,/" ${variant_home}/schemata/petclinic.schema > /tmp/foo
 		mv /tmp/foo ${variant_home}/schemata/petclinic.schema
 	
 	    exit
