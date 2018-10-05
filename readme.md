@@ -17,7 +17,7 @@ Note, that this demo application is built with the popular [Pet Clinic webapp](h
 
 ## 1. Start Variant Server
 
-• If you haven't done so yet, [download and install](https://www.getvariant.com/resources/docs/0-9/experience-server/reference/#section-1) Variant Experience Server.
+• [Download and install](https://www.getvariant.com/resources/docs/0-9/experience-server/reference/#section-1) Variant Experience Server.
 
 • Start Variant server:
 ```
@@ -43,12 +43,16 @@ Note, that Variant server comes pre-configured to run the demo application out-o
 ```
 % git clone https://github.com/getvariant/variant-java-demo.git
 ```
+• Change directory to `variant-java-demo`
+```
+% cd variant-java-demo
+```
 • Install Maven Dependencies
 
 Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository: 
 
 ```
-% mvn install:install-file -Dfile=lib/variant-java-client-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.2 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.3 -Dpackaging=jar
 
 % mvn install:install-file -Dfile=lib/variant-core-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.9.2 -Dpackaging=jar
 
