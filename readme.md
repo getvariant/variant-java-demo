@@ -71,6 +71,7 @@ INFO  2017-08-03 16:46:43 VariantFilter - Connected to schema [petclinic]
 The demo application is accessible at <span class="variant-code">http://localhost:9966/petclinic/</span>.
 
 • Optionally, configure a custom Variant server URL
+
 Out-of-the-box, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf) by setting the `server.url` property. Restart Variant server to have the new value take effect.
 
 
