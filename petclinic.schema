@@ -1,0 +1,144 @@
+/*
+ * Variant Java client + servlet adapter demo application.
+ * Demonstrates instrumentation of an experiment and a concurrent feature toggle.
+ * See https://github.com/getvariant/variant-java-demo for details.
+ *
+ * Copyright © 2015-2018 Variant, Inc. All Rights Reserved.
+ */
+
+{
+   'meta':{
+      'name':'petclinic',
+      'comment':'Variation schema for the Pet Clinic demo application'
+   },
+
+   'states':[
+      { 
+         // The vets page
+         'name':'vets',
+         'parameters': [
+            {
+               'name':'path',
+               'value':'/petclinic/vets.html'
+            }
+         ]
+      },
+      {
+         // The new visit page
+         'name':'newVisit',
+         'parameters': [
+            {
+               'name':'path',
+               'value':'/petclinic/owners/~\\d+/pets/~\\d+/visits/new'
+            }
+         ]
+      } 
+   ],                                                        
+
+   'variations':[
+
+      /*
+       * Vet's hourly rate feature toggle on the vets page only.
+       */ 
+
+     {                                                      
+         'name':'VetsHourlyRateFeature',
+         'experiences':[                                     
+            {                                                
+               'name':'existing',                                   
+               'weight':1,                                  
+               'isControl':true                              
+            },                                               
+            {                                                
+               'name':'rateColumn',
+               'weight':3                                   
+            }              
+         ],                                                  
+         'onStates':[
+            {                                                
+               'stateRef':'vets'
+            }
+         ],
+         'hooks':[
+            {
+               // Assigns all Chrome traffic to the control experience
+               'name':'ChromeTargeter',
+               'class':'com.variant.server.ext.demo.ChromeTargetingHook'
+            },
+            {
+               // Disqualifies all Safari traffic.
+               'name':'SafariDisqualifier',
+               'class':'com.variant.server.ext.demo.SafariDisqualHook'
+            }
+         ]
+      },
+
+      /*
+       * The Book a Visit Experiment on 2 pages.
+       */ 
+      
+      {                                                      
+         'name':'ScheduleVisitTest',
+         'conjointVariationRefs':['VetsHourlyRateFeature'], 
+         'experiences':[                              
+            {                                                
+               'name':'noLink',                                   
+               'weight':1,                                  
+               'isControl':true                              
+            },                                               
+            {                                                
+               'name':'withLink',
+               'weight':3                                   
+            }                                              
+         ],                                                  
+         'onStates':[
+            {                    
+               // The Vets page is instrumented by both variations
+               'stateRef':'vets',                  
+               'variants':[                                  
+                  {  
+                	 // Proper variant - when the rate column feature is in control.
+                     'experienceRef': 'withLink',
+                     'parameters': [
+                        {
+                           'name':'path',
+                           'value':'/vets__ScheduleVisit_withLink.html'
+                        }
+                     ]
+                  },                                        
+                  {                                          
+                 	 // Hybrid variant - when the rate column feature is also in a variant.
+                     'experienceRef': 'withLink',
+                     'conjointExperienceRefs': [                         
+                        {                                                 
+                           'variationRef': 'VetsHourlyRateFeature',
+                           'experienceRef': 'rateColumn'                           
+                        }                                                 
+                     ],                                                  
+                     'parameters': [
+                        {
+                           'name':'path',
+                           'value':'/vets__ScheduleVisit_withLink.html'
+                        }
+                     ]                                             
+                  }
+               ]                                             
+            },
+            {                                                
+               'stateRef':'newVisit',                    
+               'variants':[                                  
+                  {                                          
+                     'experienceRef': 'withLink',
+                     'parameters': [
+                        {
+                           'name':'path',
+                           'value':'/owners/11/pets/14/visits/new__ScheduleVisit_withLink'
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
