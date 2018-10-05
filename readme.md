@@ -77,7 +77,12 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 ## 3. Run the Demo
 
-The demo comprises two variations: the feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74) and the experiment ``. is instrumented on the `Veterinarians` page;navigate to it from the home page by clicking "Find Owners", followed by "New Owner". The original page, that the demo application comes with, looks like this:
+The demo comprises two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointments bookings by displaying a new "Schedule visit" shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, they are concurrent. In this demo they are instrumented _conjointly concurrent_, i.e. supporting the "double variant" hybrid experience when both variations are in a variant experience, as explained below.
+
+
+
+The demo comprises two variations: the feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74) and the experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142). 
+
 
 | <img src="http://www.getvariant.com/wp-content/uploads/2015/11/outOfTheBox-1024x892.png" alt="outOfTheBox" width="610" height="531" /> |
 | ------------- |
