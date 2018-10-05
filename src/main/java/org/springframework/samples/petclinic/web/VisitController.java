@@ -88,6 +88,15 @@ public class VisitController {
         }
     }
 
+    // --------------  BookAVisit experiment  ----------------- \\\ 
+
+    @RequestMapping(value = "/owners/*/pets/{petId}/visits/new__ScheduleVisit_withLink", method = RequestMethod.GET)
+    public String initNewVisitFormWithVetClumn(@PathVariable("petId") int petId, Map<String, Object> model) {
+        return "pets/createOrUpdateVisitForm__ScheduleVisit_withLink";
+    }
+
+    // ------------  End BookAVisit experiment  ----------------- ///
+
     @RequestMapping(value = "/owners/*/pets/{petId}/visits", method = RequestMethod.GET)
     public String showVisits(@PathVariable int petId, Map<String, Object> model) {
         model.put("visits", this.clinicService.findPetById(petId).getVisits());

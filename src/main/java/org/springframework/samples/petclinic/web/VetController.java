@@ -51,21 +51,16 @@ public class VetController {
         return "vets/vetList";
     }
 
-    /* / --------------  ViewAsJsonFix  ----------------- \\\ 
-    @RequestMapping(value={"/vets.xml","/vets__ViewAsJsonFix.html"})
-    public String showVetListFix(Map<String, Object> model) {
-        // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
-        // so it is simpler for Object-Xml mapping
-    	
-    	// Simulate an exception with probability 0.5.
-    	if (new Random().nextFloat() > 0.5)
-    		throw new RuntimeException("Simmulated Uncaught Runtime Exception");
+    // --------------  ScheduleVisit experiment  ----------------- \\\ 
+    @RequestMapping(value={"/vets.xml","/vets__ScheduleVisit_withLink.html"})
+    public String showVetListWithScheduleVisitColumn(Map<String, Object> model) {
+
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
         model.put("vets", vets);
-        return "vets/vetList__ViewAsJsonFix.fix";
+        return "vets/vetList__ScheduleVisit_withLink";
     }
-    */
+   // ------------  End ScheduleVisit experiment  ----------------- ///
      
     @RequestMapping("/vets.json")
     public @ResponseBody Vets showResourcesVetList() {

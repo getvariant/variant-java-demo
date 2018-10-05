@@ -20,6 +20,7 @@
     <h2>Veterinarians</h2>
 
     <datatables:table id="vets" data="${vets.vetList}" row="vet" theme="bootstrap2" cssClass="table table-striped" pageable="false" info="false">
+
         <datatables:column title="Name">
             <c:out value="${vet.firstName} ${vet.lastName}"></c:out>
         </datatables:column>
@@ -38,6 +39,7 @@
        try {
            
 	       if (liveExperienceName.isPresent() && liveExperienceName.get().equals("rateColumn")) {
+	       
     %>
     
         <datatables:column title="Hourly Rate">
@@ -52,6 +54,10 @@
               helper.failRequest();   
            }
     %>
+
+        <datatables:column title="Availability">
+                <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule an appt</a>
+        </datatables:column>
     
     </datatables:table>
     

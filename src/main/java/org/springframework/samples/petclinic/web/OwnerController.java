@@ -76,46 +76,6 @@ public class OwnerController {
         }
     }
 
-    //////////// -------- BEGIN Variant instrumentation --------- //////////// 
-    
-    @RequestMapping(value = "/owners/new/variant/newOwnerTest.tosCheckbox", method = RequestMethod.GET)
-    public String initCreationForm__newOwner_tosCheckbox(Map<String, Object> model) {
-        Owner owner = new Owner();
-        model.put("owner", owner);
-        return "owners/createOrUpdateOwnerForm__newOwnerTest.tosCheckbox";
-    }
-
-    @RequestMapping(value = "/owners/new/variant/newOwnerTest.tosCheckbox", method = RequestMethod.POST)
-    public String processCreationForm__newOwner_tosCheckbox(@Valid Owner owner, BindingResult result, SessionStatus status) {
-        if (result.hasErrors()) {
-            return "owners/createOrUpdateOwnerForm__newOwnerTest.tosCheckbox";
-        } else {
-            this.clinicService.saveOwner(owner);
-            status.setComplete();
-            return "redirect:/owners/" + owner.getId();
-        }
-    }
-
-    @RequestMapping(value = "/owners/new/variant/newOwnerTest.tosAndMailCheckbox", method = RequestMethod.GET)
-    public String initCreationForm__newOwner_tosAndMailCheckbox(Map<String, Object> model) {
-        Owner owner = new Owner();
-        model.put("owner", owner);
-        return "owners/createOrUpdateOwnerForm__newOwnerTest.tosAndMailCheckbox";
-    }
-
-    @RequestMapping(value = "/owners/new/variant/newOwnerTest.tosAndMailCheckbox", method = RequestMethod.POST)
-    public String processCreationForm__newOwner_tosAndMailCheckbox(@Valid Owner owner, BindingResult result, SessionStatus status) {
-        if (result.hasErrors()) {
-            return "owners/createOrUpdateOwnerForm__newOwnerTest.tosAndMailCheckbox";
-        } else {
-            this.clinicService.saveOwner(owner);
-            status.setComplete();
-            return "redirect:/owners/" + owner.getId();
-        }
-    }
-
-    //////////// --------- END Variant instrumentation --------- //////////// 
-
     @RequestMapping(value = "/owners/find", method = RequestMethod.GET)
     public String initFindForm(Map<String, Object> model) {
         model.put("owner", new Owner());
