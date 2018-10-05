@@ -1,72 +1,79 @@
 ![Variant Logo](http://www.getvariant.com/wp-content/uploads/2016/07/VariantLogoSquare-100.png)
 
 # Variant Experiment Server Demo Application
-### Release 0.9.2
+### Release 0.9.3
 #### Requires: 
-* Variant Java Client 0.9.x 
-* Variant Experience Server 0.9.x 
-* Java Servlet API 2.4 or later 
+* [Variant Java Client 0.9.3](https://www.getvariant.com/resources/docs/0-9/clients/variant-java-client/)
+* [Variant Experience Server 0.9.x](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/) 
 * Java 8 or later.
 
-This __Variant Demo Application__ demonstrates instrumentation of two simple experience variations: an experiment (A/B test) and a concurrent feature toggle on a Java Wep application. The following instructions will help you to
-* Download, install and deploy [Variant Experience Server](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/);
+This __Variant Demo Application__ demonstrates instrumentation of two simple experience variations: an experiment (A/B test) and a concurrent feature toggle on a Java servlet Web application. This demonstration will help you
+* Download, install and deploy Variant Experience Server on your local system;
 * Clone and deploy this demo application on your local system;
 * Step through the instrumented variations;
-* Understand the finer points of the demo.
+* Understand the instrumentation details of the demo.
 
-Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC project. This doesn't mean that your application must also use Spring MVC. We are using it to demonstrate Variant's [Java client](http://getvariant.com/resources/docs/0-9/clients/java-client) as well as the [servlet adapter for Variant Java client](https://github.com/getvariant/variant-java-servlet-adapter).
+Note, that this demo application is built with the popular [Pet Clinic webapp](https://github.com/spring-projects/spring-petclinic), available from the Sprinig MVC project. We are using it to demonstrate Variant's [Java client](http://getvariant.com/resources/docs/0-9/clients/variant-java-client) as well as the [servlet adapter for Variant Java client](https://github.com/getvariant/variant-java-servlet-adapter). If your application does not run in a servlet container, much of this demonstration will still be applicable.
 
 ## 1. Start Variant Server
 
-1. If you haven't done so yet, [download and install](https://www.getvariant.com/resources/docs/0-9/experience-server/reference/#section-1) Variant Experience Server.
+• [Download and install](https://www.getvariant.com/resources/docs/0-9/experience-server/reference/#section-1) Variant Experience Server.
 
-2. Start Variant server:
+• Start Variant server:
 ```
 % /path/to/server/bin/variant.sh start
 ```
-Note, that Variant server comes pre-configured to run the demo application out-of-the-box. The `/schemata` directory contains the demo experiment schema file `petclinic-schema.json`, and the `/ext` directory contains the `server-extensions-demo-<release>.jar` file, containing the user hooks, required to run the Pet Clinic demo application.
 
 If all went well, the server console output should look something like this:
 ```
-[info] 19:10:12.717 c.v.c.c.ConfigLoader - Found  config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.9.2/conf/variant.conf]
-[info] 19:10:14.091 c.v.s.s.SchemaDeployerFileSystem - Mounted schemata directory [/private/tmp/demo/variant-server-0.9.2/schemata]
-[info] 19:10:14.092 c.v.s.s.SchemaDeployerFileSystem - Deploying schema from file [/private/tmp/demo/variant-server-0.9.2/schemata/petclinic.schema]
+[info] 19:10:12.717 c.v.c.c.ConfigLoader - Found  config resource [/variant.conf] as [/private/tmp/demo/variant-server-0.9.3/conf/variant.conf]
+[info] 19:10:14.091 c.v.s.s.SchemaDeployerFileSystem - Mounted schemata directory [/private/tmp/demo/variant-server-0.9.3/schemata]
+[info] 19:10:14.092 c.v.s.s.SchemaDeployerFileSystem - Deploying schema from file [/private/tmp/demo/variant-server-0.9.3/schemata/petclinic.schema]
 [info] 19:10:14.285 c.v.s.s.ServerFlusherService - Registered event logger [com.variant.server.api.EventFlusherAppLogger] for schema [petclinic]
 [info] 19:10:14.312 c.v.s.s.SchemaDeployerFileSystem - Deployed schema [petclinic] ID [38EFB1D4B56FCA01], from [petclinic.schema]:
    NewOwnerTest:[outOfTheBox (control), tosCheckbox, tosAndMailCheckbox] (ON)
-[info] 19:10:14.317 c.v.s.b.VariantServerImpl - [431] Variant Experiment Server release 0.9.2 bootstrapped on :5377/variant in 00:00.247
+[info] 19:10:14.317 c.v.s.b.VariantServerImpl - [431] Variant Experiment Server release 0.9.3 bootstrapped on :5377/variant in 00:01.247
 ```
+
+Note, that Variant server comes pre-configured to run the demo application out-of-the-box. The `/schemata` directory contains the demo experiment schema file `petclinic.schema`, and the `/ext` directory contains the `server-extensions-demo-<release>.jar` file, containing the user hooks, used this demonstration.
 
 ## 2. Deploy the Demo Appliction
 
-1. Clone This Repository:
+• Clone This Repository:
 ```
 % git clone https://github.com/getvariant/variant-java-demo.git
 ```
-2. Install Maven dependencies
+• Change directory to `variant-java-demo`
+```
+% cd variant-java-demo
+```
+• Install Maven Dependencies
 
 Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository: 
 
 ```
-% mvn install:install-file -Dfile=lib/variant-java-client-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.2 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.3 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=lib/variant-core-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.9.2 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-core-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.9.3 -Dpackaging=jar
 
-% mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.2.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.2 -Dpackaging=jar
+% mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.3 -Dpackaging=jar
 ```
 
-3. Start the demo application:
+• Start the demo application:
 ```
 % mvn tomcat7:run
 ```
-Out-of-the-box, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the `server.url` property in the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf).
-
 If all went well, you will see the following console output:
 ```
 INFO  2017-08-03 16:46:42 VariantConfigLoader - Found config resource [/variant.conf] as [/private/tmp/demo/variant-java-servlet-adapter/servlet-adapter-demo/target/classes/variant.conf]
 INFO  2017-08-03 16:46:43 VariantFilter - Connected to schema [petclinic]
 ```
 The demo application is accessible at <span class="variant-code">http://localhost:9966/petclinic/</span>.
+
+• Optionally, configure a custom Variant server URL
+
+Out-of-the-box, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf) by setting the `server.url` property. Restart Variant server to have the new value take effect.
+
 
 ## 3. Run the Demo Experiment
 
