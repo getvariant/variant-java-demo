@@ -56,7 +56,7 @@
     %>
 
         <datatables:column title="Availability">
-                <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule an appt</a>
+                <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule visit</a>
         </datatables:column>
     
     </datatables:table>
