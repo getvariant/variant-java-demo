@@ -82,15 +82,29 @@ The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and
 
 <table>
   <tr>
-    <td>One</td>
-    <td>Two</td>
+    <th>VetsHourlyRateFeature</th>
+    <th colspan="2">ScheduleVisitTest</th>
   </tr>
   <tr>
-    <td colspan="2">Three</td>
+    <td>&nbsp;</td>
+    <td>Control</td>
+    <td>With Rate Column</td>
+  </tr>
+  <tr>
+    <td>Control</td>
+    <td>No variant</td>
+    <td>Proper variant</td>
+  </tr>
+  <tr>
+    <td>With book link</td>
+    <td>Proper variant</td>
+    <td>Hybrid variant</td>
   </tr>
 </table>
 
-. In this demo they are instrumented _conjointly_, i.e. supporting the "double variant" _hybrid_ experience when both the new feature and the new link are present.
+If a session is targeted for control in both variations, it traverses the existing code path. If a session is targeted for control experience in one of the variations, and to a variant experience in the other, it traverses the new code path, impelementing a _proper_ variant. Finally, a session can be targeted for variant experiences in both variations, in which case the session traverses a _hybrid_ variant. Hybrid variants are optional with Variant: by default, Variant will not target sessions to hybrid experiences — this is the _disjoint_ concurrrency model. 
+
+However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports the hybrid experience when both the new feature and the new link are present. 
 
 
 
