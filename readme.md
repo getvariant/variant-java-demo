@@ -72,12 +72,44 @@ The demo application is accessible at <span class="variant-code">http://localhos
 
 • Optionally, configure a custom Variant server URL
 
-Out-of-the-box, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf) by setting the `server.url` property. Restart Variant server to have the new value take effect.
+By default, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf) by setting the `server.url` property. Restart Variant server to have the new value take effect.
 
 
-## 3. Run the Demo Experiment
+## 3. Run the Demo
 
-The demo experiment is instrumented on the `New Owner` page. You navigate to it from the home page by clicking "Find Owners", followed by "New Owner". The original page, that the demo application comes with, looks like this:
+The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointment bookings by displaying new _Schedule visit_ shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, this page has 4 variants:
+
+
+<table>
+  <tr>
+    <th>VetsHourlyRateFeature</th>
+    <th colspan="2">ScheduleVisitTest</th>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Control</td>
+    <td>With Rate Column</td>
+  </tr>
+  <tr>
+    <td>Control</td>
+    <td>No variant</td>
+    <td>Proper variant</td>
+  </tr>
+  <tr>
+    <td>With book link</td>
+    <td>Proper variant</td>
+    <td>Hybrid variant</td>
+  </tr>
+</table>
+
+If a session is targeted for control in both variations, it traverses the existing code path. If a session is targeted for control experience in one of the variations, and to a variant experience in the other, it traverses the new code path, impelementing a _proper_ variant. Finally, a session can be targeted for variant experiences in both variations, in which case the session traverses a _hybrid_ variant. Hybrid variants are optional with Variant: by default, Variant will not target sessions to hybrid experiences — this is the _disjoint_ concurrrency model. 
+
+However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports the hybrid experience when both the new feature and the new link are present. 
+
+
+
+The demo comprises two variations: the feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74) and the experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142). 
+
 
 | <img src="http://www.getvariant.com/wp-content/uploads/2015/11/outOfTheBox-1024x892.png" alt="outOfTheBox" width="610" height="531" /> |
 | ------------- |
