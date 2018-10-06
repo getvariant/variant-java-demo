@@ -77,7 +77,20 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 ## 3. Run the Demo
 
-The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointment bookings by displaying new _Schedule visit_ shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, they are concurrent. In this demo they are instrumented _conjointly_, i.e. supporting the "double variant" _hybrid_ experience when both the new feature and the new link are present.
+The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointment bookings by displaying new _Schedule visit_ shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, this page has 4 variants:
+
+
+<table>
+  <tr>
+    <td>One</td>
+    <td>Two</td>
+  </tr>
+  <tr>
+    <td colspan="2">Three</td>
+  </tr>
+</table>
+
+. In this demo they are instrumented _conjointly_, i.e. supporting the "double variant" _hybrid_ experience when both the new feature and the new link are present.
 
 
 
