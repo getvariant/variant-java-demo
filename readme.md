@@ -77,7 +77,7 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 ## 3. Run the Demo
 
-The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointment bookings by displaying new _Schedule visit_ shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, this page has 4 variants:
+The demo consists of two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointment bookings by displaying new _Schedule visit_ shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, this page can have 4 variants:
 
 
 <table>
@@ -115,7 +115,9 @@ The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and
   </tr>
 </table>
 
-If a session is targeted for control in both variations, it traverses the existing code path. If a session is targeted for control experience in one of the variations, and to a variant experience in the other, it traverses the new code path, impelementing a _proper_ variant. Finally, a session can be targeted for variant experiences in both variations, in which case the session traverses a _hybrid_ variant. Hybrid variants are optional with Variant: by default, Variant will not target sessions to hybrid experiences — this is the _disjoint_ concurrrency model. 
+If a session is targeted for control in both variations, it is served the existing `Veterinarians` page with two columns. If a session is targeted for control experience in either variation, and to a variant experience in the other, it sees a _proper_ variant of the `Veterinarians` page with one extra column. Finally, if a session is targeted for variant experiences in both variations, it is served the _hybrid_ variant of the `Veterinarians` page with two extra columns. 
+
+Hybrid variants are optional with Variant: by default, Variant will not target sessions to hybrid experiences — this is the _disjoint_ concurrrency model. 
 
 However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports the hybrid experience when both the new feature and the new link are present. 
 
