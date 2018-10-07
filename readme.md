@@ -117,34 +117,12 @@ The demo consists of two variations: the feature toggle `VetsHourlyRateFeature` 
 
 If a session is targeted for control in both variations, it is served the existing `Veterinarians` page with two columns. If a session is targeted for control experience in either variation, and to a variant experience in the other, it sees a _proper_ variant of the `Veterinarians` page with one extra column. Finally, if a session is targeted for variant experiences in both variations, it is served the _hybrid_ variant of the `Veterinarians` page with two extra columns. 
 
-Hybrid variants are optional with Variant: by default, Variant will not target sessions to hybrid experiences — this is the _disjoint_ concurrrency model. 
+Hybrid state variants are optional in Variant: unless explicitely configured in the schema, concurrent variations are treated as _disjoint_, i.e. Variant server will not target any sessions to variant experiences in both variations. However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports hybrid state vairants, when both variations are targeted to the variant experience. This is explained in detain in a subsequent section.
 
-However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports the hybrid experience when both the new feature and the new link are present. 
-
-
+When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is durable, so reloading the page won't change it. However, if you want to make Variant to retarget, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
 
 The demo comprises two variations: the feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74) and the experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142). 
 
-
-| <img src="http://www.getvariant.com/wp-content/uploads/2015/11/outOfTheBox-1024x892.png" alt="outOfTheBox" width="610" height="531" /> |
-| ------------- |
-| __Fig. 1. The orignal New Owner page.__ | 
-
-<br>
-
-The demo experiment introduces two variants of this page called `tosCheckBox` and `tos&mailCheckbox`, as illustrated below.
-
-| <img src="http://www.getvariant.com/wp-content/uploads/2015/11/tosCheckbox-1024x954.png" alt="tosCheckbox" width="610" height="568" /> | 
-| ------------- | 
-| __Fig. 2. The `tosCheckBox` variant adds the terms of service check box.__ |
-
-<br>
-
-| <img src="http://www.getvariant.com/wp-content/uploads/2015/11/tosmailCheckbox-1024x1000.png" alt="tos&mailCheckbox" width="610" height="596" /> | 
-| ------------- |
-| __Fig. 3. The `tos&mailCheckbox` variant adds the email list<br>opt-in check box in addition to the ToS checkbox.__ | 
- 
-<br>
 
 The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
 
