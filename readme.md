@@ -82,13 +82,14 @@ The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and
 
 <table>
   <tr>
-    <th>VetsHourlyRateFeature</th>
+    <th>VetsHourlyRate
+       Feature</th>
     <th colspan="2">ScheduleVisitTest</th>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td>Control</td>
-    <td>With Rate Column</td>
+    <td>With Hourly Rate Column</td>
   </tr>
   <tr>
     <td>Control</td>
@@ -102,7 +103,7 @@ The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and
      </td>
   </tr>
   <tr>
-    <td>With appointment link</td>
+    <td>With Availability Column</td>
     <td>
         <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
        With availability column. (Proper state variant).
