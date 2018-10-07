@@ -92,13 +92,25 @@ The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and
   </tr>
   <tr>
     <td>Control</td>
-    <td>No variant</td>
-    <td>Proper variant</td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/767b758b2e145dca688bbc65e521e5ac804f4fb7/docs/img/Fig-1-all-control.png">
+       Existing code path.
+     </td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
+       With hourly rate column. (Proper state variant).
+     </td>
   </tr>
   <tr>
-    <td>With book link</td>
-    <td>Proper variant</td>
-    <td>Hybrid variant</td>
+    <td>With appointment link</td>
+    <td>
+        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
+       With availability column. (Proper state variant).
+     </td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-hybrid.png">
+       With both columns. (Hybrid state variant).
+     </td>
   </tr>
 </table>
 
