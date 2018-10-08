@@ -180,10 +180,17 @@ The [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/b
 
 Note the [two state variants](https://github.com/getvariant/variant-java-demo/blob/b683f4c400d62d96f6e1539a34ead1df407f69de/petclinic.schema#L93-L120) on the `Veterinarians` page. They are needed to provide the new values of the `path` state parameter, specific to the two state variants. These values are utilized by the [`Variant servlet adapter`](https://github.com/getvariant/variant-java-servlet-adapter) to forward an incoming HTTP request to an alternate resource path.
 
-### 4.2 Experience Implementations
+### 4.2 Variant Servlet Adapter
+
+This demo application makes extensive use of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter) for the Variant Java client. It is bootstrapped via the application's [deployment descriptor](https://github.com/getvariant/variant-java-demo/blob/327520377791b8abba0da2c3d8fbbd61473a04d2/src/main/webapp/WEB-INF/web.xml#L124-L137). The underlying [`VariantFilter`](https://getvariant.github.io/variant-java-servlet-adapter/com/variant/client/servlet/VariantFilter.html) intercepts all incoming HTTP request and matches their paths with those given in the [`path` state marameters](https://github.com/getvariant/variant-java-demo/blob/72f7460aa2f9cf2dc4f2922814c91650fb06d975/petclinic.schema#L18-L35). If the request patch matches the value spcified in a state, `VariantFilter` treats the current request as hitting an instrumented state. It then retrieves the value of the same `path` state parameter, specified at the state variant level. If the state variant for which the current session is targeted, specifies a different value for the `path` state parameter, `VariantFilter` forwards the request to that resource path. 
+
+The `VetsHourlyRateFeature` variation does not provide any state parameter overrides, so if the session was targeted for the control experience in the covariant `ScheduleVisitTest` variation, `VariantFilter` lets the HTTP request fall through. 
+
+### 4.3 Experience Implementations
 
 
-Any online experiment starts with the implementation of variant experiences that will be compared to the existing code path. To accomplish this, we did the following:
+#### 4.3.1 `VetsHourlyRateFeature`
+
 
 1. Created controller mappings in the class <a href="https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/java/org/springframework/samples/petclinic/web/OwnerController.java#L79-L117" target="_blank">OwnerController.java</a> for the new resource paths `/owners/new/variant/newOwnerTest.tosCheckbox` and `/owners/new/variant/newOwnerTest.tosAndMailCheckbox` — the entry points into the new experiences. Whenever Variant targets a session for a non-control variant of the `newOwner` page, it will forward the current HTTP request to that path. Otherwise, the request will proceed to the control page at the originally requested path `/owners/new/`.
 
