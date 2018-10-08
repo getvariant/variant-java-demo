@@ -87,9 +87,9 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
 
 <table>
   <tr>
-    <th>VetsHourlyRate
-       Feature</th>
-    <th colspan="2">ScheduleVisitTest</th>
+    <th>ScheduleVisit
+       Test</th>
+    <th colspan="2">VetsHourlyRateFeature</th>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -120,13 +120,12 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
   </tr>
 </table>
 
-If a session is targeted for control in both variations, it is served the existing `Veterinarians` page with two columns. If a session is targeted for control experience in either variation, and to a variant experience in the other, it sees a _proper_ variant of the `Veterinarians` page with one extra column. Finally, if a session is targeted for variant experiences in both variations, it is served the _hybrid_ variant of the `Veterinarians` page with two extra columns. 
+If a session is targeted for control experiences in both variations, it is served the existing `Veterinarians` page with two columns. If a session is targeted for a variant experience in either variation, and to control in the other, it sees either of the two _proper_ variants of the `Veterinarians` page with one extra column. Finally, if a session is targeted for variant experiences in _both_ variations, it is served the _hybrid_ variant of the `Veterinarians` page with two extra columns. 
 
 Hybrid state variants are optional in Variant: unless explicitely configured in the schema, concurrent variations are treated as _disjoint_, i.e. Variant server will not target any sessions to variant experiences in both variations. However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports hybrid state vairants, when both variations are targeted to the variant experience. This is explained in detain in a subsequent section.
 
-When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is durable, so reloading the page won't change it. However, if you want to make Variant to retarget, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
+When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
 
-The demo comprises two variations: the feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74) and the experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142). 
 
 
 The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
