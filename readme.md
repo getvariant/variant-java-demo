@@ -104,14 +104,14 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
      </td>
     <td>
         <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
-       With hourly rate column. (Proper state variant).
+       With availability column. (Proper state variant).
      </td>
   </tr>
   <tr>
     <td>With Hourly Rate Column</td>
     <td>
        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
-       With availability column. (Proper state variant).
+       With hourly rate column. (Proper state variant).
      </td>
     <td>
        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-hybrid.png">
