@@ -77,59 +77,56 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 ## 3. Run the Demo
 
-The demo contains two variations: the feature toggle `VetsHourlyRateFeature` and the experiment `ScheduleVisitTest`. The former exposes an early release of a new feature on the `Veterenarians` page, and the latter is an experiment designed to improve new appointment bookings by displaying new _Schedule visit_ shortcut link on the same `Veterenarians` page. Since the two variations share the  `Veterenarians` page, this page has 4 variants:
+The demo consists of two variations:
 
+__The feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74)__ exposes an early release of a the new feature on the `Veterenarians` page, which adds the _Hourly Rate_ column to the table.
+
+__The experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142)__ validates another new featute, designed to improve new appointment bookings by displaying new _Availability_ column on the same same `Veterenarians` page. 
+
+Since the  `Veterenarians` page is shared by bothvariations, it can have 4 variants:
 
 <table>
   <tr>
-    <th>VetsHourlyRateFeature</th>
-    <th colspan="2">ScheduleVisitTest</th>
+    <th>ScheduleVisit
+       Test</th>
+    <th colspan="2">VetsHourlyRateFeature</th>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td>Control</td>
-    <td>With Rate Column</td>
+    <td>With Hourly Rate Column</td>
   </tr>
   <tr>
     <td>Control</td>
-    <td>No variant</td>
-    <td>Proper variant</td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/767b758b2e145dca688bbc65e521e5ac804f4fb7/docs/img/Fig-1-all-control.png">
+       Existing code path.
+     </td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
+       With hourly rate column. (Proper state variant).
+     </td>
   </tr>
   <tr>
-    <td>With book link</td>
-    <td>Proper variant</td>
-    <td>Hybrid variant</td>
+    <td>With Availability Column</td>
+    <td>
+        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
+       With availability column. (Proper state variant).
+     </td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-hybrid.png">
+       With both columns. (Hybrid state variant).
+     </td>
   </tr>
 </table>
 
-If a session is targeted for control in both variations, it traverses the existing code path. If a session is targeted for control experience in one of the variations, and to a variant experience in the other, it traverses the new code path, impelementing a _proper_ variant. Finally, a session can be targeted for variant experiences in both variations, in which case the session traverses a _hybrid_ variant. Hybrid variants are optional with Variant: by default, Variant will not target sessions to hybrid experiences — this is the _disjoint_ concurrrency model. 
+If a session is targeted for control experiences in both variations, it is served the existing `Veterinarians` page with two columns. If a session is targeted for a variant experience in either variation, and to control in the other, it sees either of the two _proper_ variants of the `Veterinarians` page with one extra column. Finally, if a session is targeted for variant experiences in _both_ variations, it is served the _hybrid_ variant of the `Veterinarians` page with two extra columns. 
 
-However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports the hybrid experience when both the new feature and the new link are present. 
+Hybrid state variants are optional in Variant: unless explicitely configured in the schema, concurrent variations are treated as _disjoint_, i.e. Variant server will not target any sessions to variant experiences in both variations. However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports hybrid state vairants, when both variations are targeted to the variant experience. This is explained in detain in a subsequent section.
 
-
-
-The demo comprises two variations: the feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74) and the experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142). 
+When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
 
 
-| <img src="http://www.getvariant.com/wp-content/uploads/2015/11/outOfTheBox-1024x892.png" alt="outOfTheBox" width="610" height="531" /> |
-| ------------- |
-| __Fig. 1. The orignal New Owner page.__ | 
-
-<br>
-
-The demo experiment introduces two variants of this page called `tosCheckBox` and `tos&mailCheckbox`, as illustrated below.
-
-| <img src="http://www.getvariant.com/wp-content/uploads/2015/11/tosCheckbox-1024x954.png" alt="tosCheckbox" width="610" height="568" /> | 
-| ------------- | 
-| __Fig. 2. The `tosCheckBox` variant adds the terms of service check box.__ |
-
-<br>
-
-| <img src="http://www.getvariant.com/wp-content/uploads/2015/11/tosmailCheckbox-1024x1000.png" alt="tos&mailCheckbox" width="610" height="596" /> | 
-| ------------- |
-| __Fig. 3. The `tos&mailCheckbox` variant adds the email list<br>opt-in check box in addition to the ToS checkbox.__ | 
- 
-<br>
 
 The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
 
