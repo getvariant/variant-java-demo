@@ -127,6 +127,26 @@ Hybrid state variants are optional in Variant: unless explicitely configured in 
 When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
 
 
+<table>
+  <tr>
+    <th colspan="2">ScheduleVisitTest</th>
+  </tr>
+  <tr>
+    <td>Control</td>
+    <td>With Availability Column</td>
+  </tr>
+  <tr>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/9a1f7df67fd559a6c4b83fab9c8567d09e678246/docs/img/Fig-2-control.png">
+       Existing code path.
+     </td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/9a1f7df67fd559a6c4b83fab9c8567d09e678246/docs/img/Fig-2-with-appt-link.png">
+       With availability column.
+     </td>
+  </tr>
+</table>
+
 
 The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
 
