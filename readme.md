@@ -159,9 +159,11 @@ The variation schema for this demo does not specify a tracing event flusher, def
 [info] 20:03:40.444 c.v.s.a.EventFlusherAppLogger - {event_name:'$STATE_VISIT', created_on:'1538967820228', session_id:'11BAEABC9F08B6F8', event_experiences:[{test_name:'ScheduleVisitTest', experience_name:'noLink', is_control:true}], event_attributes:[{key:'$STATE', value:'vets'}, {key:'HTTP_STATUS', value:'200'}, {key:'$STATUS', value:'Committed'}]}
 ```
 
-The `STATE-VISIT` event is automatically triggered by Variant each time a user session visits an instrumented Web page. Note, that there will a delay between the time your session lands on an instrumented page and the event is flushed to the log. This is due to the asynchronous nature of Variant's event writer. You can reduce the lag by changing the value of the `event.writer.max.delay` configuration paramenter in the `conf/variant.conf` file. 
+The `STATE-VISIT` event is automatically triggered by Variant each time a user session visits an instrumented Web page. Note the delay between the time your session lands on an instrumented page and when the event is flushed to the log. This is due to the asynchronous nature of Variant's event writer. You can reduce the lag by changing the value of the `event.writer.max.delay` server configuration paramenter in the `conf/variant.conf` file. 
 
 You can also [configure a different trace event flusher](http://getvariant.com/resources/docs/0-9/experience-server/reference/#section-4.3) to utilize a persistence mechanism of your choice. 
+
+Trace events provide the basis for analysing variations. Features can be programmatically disabled if trace events indicate an unexpected failure, and experiments can be analized for target metrics and statistical significance.
 
 ## 4. Discussion
 
