@@ -165,7 +165,23 @@ You can also [configure a different trace event flusher](http://getvariant.com/r
 
 Trace events provide the basis for analysing variations. Features can be programmatically disabled if trace events indicate an unexpected failure, and experiments can be analized for target metrics and statistical significance.
 
-## 4. Discussion
+## 4. Instrumentation
+
+### 4.1 Variation Schema
+
+The variation schema used by this demo application is included with the Variant server distribution, in the `schemata/petclinic.schema` file. For convenience, it is also replicated in this repo in [`petclinic.schemata`](https://github.com/getvariant/variant-java-demo/blob/06c66e40ea206609fc4ff370bce13998c2ea12b9/petclinic.schema).
+
+The two states [`vets`](https://github.com/getvariant/variant-java-demo/blob/06c66e40ea206609fc4ff370bce13998c2ea12b9/petclinic.schema#L17-L25) and [`newVisit`](https://github.com/getvariant/variant-java-demo/blob/06c66e40ea206609fc4ff370bce13998c2ea12b9/petclinic.schema#L27-L35) correspond to the `Veterinarians` page and the `New Visit` page. The `path` state parameter is used by [the servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter) to intercept the incoming HTTP request for these two pages.  
+
+The [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/b683f4c400d62d96f6e1539a34ead1df407f69de/petclinic.schema#L44-L69) variation is instrumented on the single `Veterinarians` page and has two experiences `existing` (control) and `rateColumn` with randomized weights 3:1 in favor of the variant. Note also the [`ChromeTargeter`](https://github.com/getvariant/variant-server-extapi/blob/master/src/main/java/com/variant/server/ext/demo/ChromeTargetingHook.java) lifecycle event hook which overrides the default rantomized targeting by assigning all Chrome traffic to the control experience.
+
+
+The [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/b683f4c400d62d96f6e1539a34ead1df407f69de/petclinic.schema#L75-L137) variation is instrumented on two pages, starting on the `Veterinarinans` page and ending on the `New Visit` page. Note the [`conjointVariationsRefs`](https://github.com/getvariant/variant-java-demo/blob/b683f4c400d62d96f6e1539a34ead1df407f69de/petclinic.schema#L77) specification, delcaring the conjoint concurrence between the two variations. This specificaion tells Variant that 'ScheduleVisitTest` and `VetsHourlyReateFeature` are conjointly concurrent, i.e. that it's okay for Variant server to target a session for these two variations completely independently.
+
+Note the [two state variants](https://github.com/getvariant/variant-java-demo/blob/b683f4c400d62d96f6e1539a34ead1df407f69de/petclinic.schema#L93-L120) on the `Veterinarians` page. They are needed to provide the new values of the `path` state parameter, specific to the two state variants. These values are utilized by the [`Variant servlet adapter`](https://github.com/getvariant/variant-java-servlet-adapter) to forward an incoming HTTP request to an alternate resource path.
+
+### 4.2 Experience Implementations
+
 
 Any online experiment starts with the implementation of variant experiences that will be compared to the existing code path. To accomplish this, we did the following:
 
@@ -173,113 +189,8 @@ Any online experiment starts with the implementation of variant experiences that
 
 2. Created two new JSP pages [`createOrUpdateOwnerForm__newOwnerTest.tosCheckbox.jsp`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/jsp/owners/createOrUpdateOwnerForm__newOwnerTest.tosCheckbox.jsp) and  [`createOrUpdateOwnerForm__newOwnerTest.tosAndMailCheckbox.jsp`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/jsp/owners/createOrUpdateOwnerForm__newOwnerTest.tosAndMailCheckbox.jsp), implementing the two new variants of the new owner page.
 
-3. Created the experiment schema. 
-```
-//
-// Variant Java client + Servlet adapter demo application.
-// Demonstrates instrumentation of a basic Variant experiment.
-// See https://github.com/getvariant/variant-java-servlet-adapter/tree/master/servlet-adapter-demo
-// for details.
-//
-// Copyright © 2015-2017 Variant, Inc. All Rights Reserved.
 
-{
-   'meta':{
-      'name':'petclinic',
-      'comment':'Experiment schema for the Pet Clinic demo application'
-   },
-   'states':[                                                
-     { 
-       // The New Owner page used to add owner at /petclinic/owners/new 
-       'name':'newOwner',
-       'parameters': [
-            {
-               'name':'path',
-               'value':'/petclinic/owners/new'
-            }
-        ]
-     },                                                    
-     {  
-       // The Owner Detail page. Note that owner ID is in the path,
-        // so we have to use regular expression to match.
-       'name':'ownerDetail',
-       'parameters': [
-            {
-               'name':'path',
-               'value':'/petclinic/owners/~\\d+/'
-            }
-        ]
-     }                                                     
-   ],                                                        
-   'tests':[                                                 
-      {                                                      
-         'name':'NewOwnerTest',
-         'isOn': true,                                     
-         'experiences':[                                     
-            {                                                
-               'name':'outOfTheBox',                                   
-               'weight':1,                                  
-               'isControl':true                              
-            },                                               
-            {                                                
-               'name':'tosCheckbox',                                   
-               'weight':1                                   
-            },                                               
-            {                                                
-               'name':'tosAndMailCheckbox',                                   
-               'weight':1                                   
-            }                                               
-         ],                                                  
-         'onStates':[                                         
-            {                                                
-               'stateRef':'newOwner',                    
-               'variants':[                                  
-                  {                                          
-                     'experienceRef': 'tosCheckbox',
-                     'parameters': [
-                        {
-                           'name':'path',
-                           'value':'/owners/new/variant/newOwnerTest.tosCheckbox'
-                        }
-                     ]
-                  },                                         
-                  {                                          
-                     'experienceRef': 'tosAndMailCheckbox',                   
-                     'parameters': [
-                        {
-                           'name':'path',
-                           'value':'/owners/new/variant/newOwnerTest.tosAndMailCheckbox'
-                        }
-                     ]
-                  }                                          
-               ]                                             
-            },
-            {                                                
-               'stateRef':'ownerDetail',                            
-               'isNonvariant': true
-            }                                                
-         ],
-         'hooks':[
-            {
-               // Disqualifies all Safari traffic.
-               'name':'SafariDisqualifier',
-               'class':'com.variant.server.ext.demo.SafariDisqualHook'
-            },
-            {
-               // Assigns all Chrome traffic to the control experience
-               'name':'ChromeTargeter',
-               'class':'com.variant.server.ext.demo.ChromeTargetingHook'
-            }
-         ]
-      }                                                     
-   ]                                                         
-}                         
-      
 
-```
-Note, that Variant server comes out-of-the-boxwith this schema already in the `schemata` directory.
-
-The two states (lines 14-30) correspond to the two consecutive pages in the experiment: <span class="variant-code">newOwner</span> and <span class="variant-code">ownerDetail</span>. The sole experiment <span class="variant-code">NewOwnerTest</span> has three experiences (lines 35-49) with equal weights, i.e. roughly equal number of users sessions will be targeted to each of the experiences. The test is instrumented on both pages, although the <span class="variant-code">ownerDetail</span> page is defined as non-variant (lines 68-71), which means that visitors will see the same page regardless of the targeted experience. The <span class="variant-code">newOwner</span> page, however, has two variants: one for each non-control experience (lines 53-66).
 
 4. Created [`PetclinicVariantFilter`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/java/com/variant/client/servlet/demo/PetclinicVariantFilter.java) and configured it in the Petclinic applciation's [`web.xml`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/web.xml#L124-L137) file. In general, servlet filter is the instrumentation mechanism behind the servlet adapter. Here, we extend the base [`VariantFilter`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter/src/main/java/com/variant/client/servlet/VariantFilter.java) class with additional semantics: whenever the base `VariantFilter` obtains a Variant session, the User-Agent header from the incoming request is saved as a session attribute. This will be used by the server side user hooks in order to disqualify or target user sessions based on what Web browser they are coming from.
 
