@@ -124,8 +124,9 @@ If a session is targeted for control experiences in both variations, it is serve
 
 Hybrid state variants are optional in Variant: unless explicitely configured in the schema, concurrent variations are treated as _disjoint_, i.e. Variant server will not target any sessions to variant experiences in both variations. However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports hybrid state vairants, when both variations are targeted to the variant experience. This is explained in detain in a subsequent section.
 
-When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
+When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.) You may also vary the [probability weights](https://github.com/getvariant/variant-java-demo/blob/ad4d55d1d7017c64e4e9c8248f7700eff2c32b61/petclinic.schema#L54) by editing the `petclinic.schema` file in the server's `schemata` directory.
 
+If your session happened to be targeted to the variant experience in the `ScheduleVisitTest` and you see the _Schedule visit_ link, clicking it will navigatete to the experimental version of the `New Visit`page:
 
 <table>
   <tr>
@@ -147,6 +148,11 @@ When you first navigate to the `Veterinarians` page, Variant server targets your
   </tr>
 </table>
 
+```javascript {.line-numbers}
+function add(x, y) {
+  return x + y
+}
+```
 
 The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
 
