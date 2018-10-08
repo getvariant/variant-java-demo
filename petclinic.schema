@@ -9,7 +9,7 @@
 {
    'meta':{
       'name':'petclinic',
-      'comment':'Variation schema for the Pet Clinic demo application'
+      'comment':'Variation schema for experiments on the Pet Clinic demo application'
    },
 
    'states':[
@@ -64,11 +64,6 @@
                // Assigns all Chrome traffic to the control experience
                'name':'ChromeTargeter',
                'class':'com.variant.server.ext.demo.ChromeTargetingHook'
-            },
-            {
-               // Disqualifies all Safari traffic.
-               'name':'SafariDisqualifier',
-               'class':'com.variant.server.ext.demo.SafariDisqualHook'
             }
          ]
       },
