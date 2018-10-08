@@ -184,30 +184,16 @@ Note the [two state variants](https://github.com/getvariant/variant-java-demo/bl
 
 This demo application makes extensive use of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter) for the Variant Java client. It is bootstrapped via the application's [deployment descriptor](https://github.com/getvariant/variant-java-demo/blob/327520377791b8abba0da2c3d8fbbd61473a04d2/src/main/webapp/WEB-INF/web.xml#L124-L137). The underlying [`VariantFilter`](https://getvariant.github.io/variant-java-servlet-adapter/com/variant/client/servlet/VariantFilter.html) intercepts all incoming HTTP request and matches their paths with those given in the [`path` state parameters](https://github.com/getvariant/variant-java-demo/blob/72f7460aa2f9cf2dc4f2922814c91650fb06d975/petclinic.schema#L18-L35). If the request path matches the value spcified in a state, `VariantFilter` treats the current request as hitting an instrumented state. It then retrieves the value of the `path` state parameter, specified at the state variant level. If the state variant for which the current session is targeted, specifies a different value for the `path` state parameter, `VariantFilter` forwards the request to that resource path. Otherwise, `VariantFilter` lets the request through.
 
+`VariantFilter` also declares [some callback methods](https://github.com/getvariant/variant-java-servlet-adapter/blob/c7e013cedc17f7d3dfbf4d408ed1c8f8dcf93594/src/main/java/com/variant/client/servlet/VariantFilter.java#L130-L144) that allow subclasses to inject additional semantics. In particular, the `onSession()` method is [taken advantage of](https://github.com/getvariant/variant-java-demo/blob/4d471e41e2dfccc480803cbf00b3c069233a5810/src/main/java/com/variant/client/servlet/demo/PetclinicVariantFilter.java#L12-L19) in this demo. Here we create a Variant session attribute `user-agent` holding the value of the `User-Agent` HTTP request header. This session attributre will be used by the `ChromeTargeter` liecycle hook, as explained in the next section.
+
+### 4.3 `ChromeTargeter` Lifecycle Hook 
+
+
+
+### 4.4 Experience Implementations
+
 The `VetsHourlyRateFeature` variation does not specify any state parameter overrides, so if the session was targeted for the control experience in the covariant `ScheduleVisitTest` variation, `VariantFilter` lets the HTTP request fall through. Both experiences will proceed though the existing code path up until [`vets.jsp`](https://github.com/getvariant/variant-java-demo/blob/e783434ae9c5166d7c19e8ee6642714e12c6418d/src/main/webapp/WEB-INF/jsp/vets/vetList.jsp#L34-L54), where the new _Hourly Rate_ column is optionally displayed, depending on the live experience in effect. This type of experience instrumentation, where the code bifurcates as late in the code path as possible, is referred to as _lazy instrumentation_.
 
 Alternatively, the `ScheduleVisitTest` variation makes use of the state parameter overrides. If a session is targeted to the `withLink` experience, `VariantFilter` forwards it to the new `/vets__ScheduleVisit_withLink.html` path, which is [mapped](https://github.com/getvariant/variant-java-demo/blob/e783434ae9c5166d7c19e8ee6642714e12c6418d/src/main/java/org/springframework/samples/petclinic/web/VetController.java#L54-L63) to the [`vets/vetList__ScheduleVisit_withLink.jsp`](https://github.com/getvariant/variant-java-demo/blob/e783434ae9c5166d7c19e8ee6642714e12c6418d/src/main/webapp/WEB-INF/jsp/vets/vetList__ScheduleVisit_withLink.jsp), which is a copy of the existing `vets/vetList.jsp` plus the implementation of the new _Availability_ column. This type of experience instrumentation, where the code bifurcates as early as possible, is referred to as _eager instrumentation_.
 
-### 4.3 Experience Implementations
-
-
-#### 4.3.1 `VetsHourlyRateFeature`
-
-
-1. Created controller mappings in the class <a href="https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/java/org/springframework/samples/petclinic/web/OwnerController.java#L79-L117" target="_blank">OwnerController.java</a> for the new resource paths `/owners/new/variant/newOwnerTest.tosCheckbox` and `/owners/new/variant/newOwnerTest.tosAndMailCheckbox` — the entry points into the new experiences. Whenever Variant targets a session for a non-control variant of the `newOwner` page, it will forward the current HTTP request to that path. Otherwise, the request will proceed to the control page at the originally requested path `/owners/new/`.
-
-2. Created two new JSP pages [`createOrUpdateOwnerForm__newOwnerTest.tosCheckbox.jsp`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/jsp/owners/createOrUpdateOwnerForm__newOwnerTest.tosCheckbox.jsp) and  [`createOrUpdateOwnerForm__newOwnerTest.tosAndMailCheckbox.jsp`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/jsp/owners/createOrUpdateOwnerForm__newOwnerTest.tosAndMailCheckbox.jsp), implementing the two new variants of the new owner page.
-
-
-
-
-4. Created [`PetclinicVariantFilter`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/java/com/variant/client/servlet/demo/PetclinicVariantFilter.java) and configured it in the Petclinic applciation's [`web.xml`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/web.xml#L124-L137) file. In general, servlet filter is the instrumentation mechanism behind the servlet adapter. Here, we extend the base [`VariantFilter`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter/src/main/java/com/variant/client/servlet/VariantFilter.java) class with additional semantics: whenever the base `VariantFilter` obtains a Variant session, the User-Agent header from the incoming request is saved as a session attribute. This will be used by the server side user hooks in order to disqualify or target user sessions based on what Web browser they are coming from.
-
-5. Created [FirefoxDisqualifier](https://github.com/getvariant/variant-server-extapi/blob/master/server-extapi-demo/src/main/java/com/variant/server/ext/demo/FirefoxDisqualHook.java) and [ChromeTargeter](https://github.com/getvariant/variant-server-extapi/blob/master/server-extapi-demo/src/main/java/com/variant/server/ext/demo/ChromeTargetingHook.java) user hooks. Out-of-the-box, Variant server comes with the `/ext/server-extensions-demo-0.7.1.jar` JAR file, containing class files for these hooks. See [Variant Experiment Server Reference](http://www.getvariant.com/docs/0-7/experiment-server/reference/#section-4) for details on how to develop for the server extensions API. 
-
-6. Instrumented the submit button on the `newOwner` page to send a custom `CLICK` event to the server when the button is pressed by editing the [`staticFiles.jsp`](https://github.com/getvariant/variant-java-servlet-adapter/blob/master/servlet-adapter-demo/src/main/webapp/WEB-INF/jsp/fragments/staticFiles.jsp#L32-L68) file.
-
-
-
-
-Updated on 19 July 2017.
+Updated for 0.9.3 on 8 October 2018.
