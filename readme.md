@@ -188,7 +188,7 @@ This demo application makes extensive use of the [servlet adapter](https://githu
 
 ### 4.3 `ChromeTargeter` Lifecycle Hook 
 
-
+The schema definition for the `VetsHourlyRateFeature` contains the [`ChromeTargeter`](https://github.com/getvariant/variant-server-extapi/blob/master/src/main/java/com/variant/server/ext/demo/ChromeTargetingHook.java) lifecycle event hook which overrides the default rantomized targeting by assigning all Chrome traffic to the control experience. In a real application you will likely use feature flags to  roll out a new feature to a gradualy increasing user population, e.g. by the zip code. This is best achieved though the use of a similar lifecycle hook, which operates on the server side, is highly reusable and entirely outside the host application's code base.
 
 ### 4.4 Experience Implementations
 
