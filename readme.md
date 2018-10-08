@@ -87,14 +87,14 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
 
 <table>
   <tr>
-    <th>ScheduleVisit
-       Test</th>
-    <th colspan="2">VetsHourlyRateFeature</th>
+    <th>VetsHourlyRate
+       Feature</th>
+    <th colspan="2">ScheduleVisitTest</th>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td>Control</td>
-    <td>With Hourly Rate Column</td>
+    <td>With Availability Column</td>
   </tr>
   <tr>
     <td>Control</td>
@@ -103,14 +103,14 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
        Existing code path.
      </td>
     <td>
-       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
+        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
        With hourly rate column. (Proper state variant).
      </td>
   </tr>
   <tr>
-    <td>With Availability Column</td>
+    <td>With Hourly Rate Column</td>
     <td>
-        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
+       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
        With availability column. (Proper state variant).
      </td>
     <td>
