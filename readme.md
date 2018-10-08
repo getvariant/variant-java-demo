@@ -77,6 +77,8 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 ## 3. Run the Demo
 
+### 3.1 User Experiences
+
 The demo consists of two variations:
 
 __The feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74)__ exposes an early release of a the new feature on the `Veterenarians` page, which adds the _Hourly Rate_ column to the table.
@@ -87,14 +89,14 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
 
 <table>
   <tr>
-    <th>ScheduleVisit
-       Test</th>
-    <th colspan="2">VetsHourlyRateFeature</th>
+    <th>VetsHourlyRate
+       Feature</th>
+    <th colspan="2">ScheduleVisitTest</th>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td>Control</td>
-    <td>With Hourly Rate Column</td>
+    <td>With Availability Column</td>
   </tr>
   <tr>
     <td>Control</td>
@@ -103,15 +105,15 @@ Since the  `Veterenarians` page is shared by bothvariations, it can have 4 varia
        Existing code path.
      </td>
     <td>
-       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
-       With hourly rate column. (Proper state variant).
+        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
+       With availability column. (Proper state variant).
      </td>
   </tr>
   <tr>
-    <td>With Availability Column</td>
+    <td>With Hourly Rate Column</td>
     <td>
-        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
-       With availability column. (Proper state variant).
+       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
+       With hourly rate column. (Proper state variant).
      </td>
     <td>
        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-hybrid.png">
@@ -124,28 +126,44 @@ If a session is targeted for control experiences in both variations, it is serve
 
 Hybrid state variants are optional in Variant: unless explicitely configured in the schema, concurrent variations are treated as _disjoint_, i.e. Variant server will not target any sessions to variant experiences in both variations. However, in this demo, the more complex _conjoint_ concurrency model is demonstrated. It supports hybrid state vairants, when both variations are targeted to the variant experience. This is explained in detain in a subsequent section.
 
-When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.)
+When you first navigate to the `Veterinarians` page, Variant server targets your session randomly in both variations. This targeting is _durable_, so reloading the page won't change it. If you want to make Variant to re-target, get a new private browser window. (Note that some browsers share cookies between private windows, so be sure that there are no other private windows open.) You may also vary the probability weights ([here](https://github.com/getvariant/variant-java-demo/blob/ad4d55d1d7017c64e4e9c8248f7700eff2c32b61/petclinic.schema#L54) and [here](https://github.com/getvariant/variant-java-demo/blob/ad4d55d1d7017c64e4e9c8248f7700eff2c32b61/petclinic.schema#L91)) by editing the `petclinic.schema` file in the server's `schemata` directory.
 
+If your session happened to be targeted to the variant experience in the `ScheduleVisitTest` and you see the _Schedule visit_ link, clicking it will navigatete to the experimental version of the `New Visit`page, containing the vet's name:
 
+<table>
+  <tr>
+    <th colspan="2">ScheduleVisitTest</th>
+  </tr>
+  <tr>
+    <td>Control</td>
+    <td>With Availability Column</td>
+  </tr>
+  <tr>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/9a1f7df67fd559a6c4b83fab9c8567d09e678246/docs/img/Fig-2-control.png">
+       Existing code path.
+     </td>
+    <td>
+       <img src="https://github.com/getvariant/variant-java-demo/blob/9a1f7df67fd559a6c4b83fab9c8567d09e678246/docs/img/Fig-2-with-appt-link.png">
+       With availability column.
+     </td>
+  </tr>
+</table>
 
-The metric we're after in this experiment is the next page conversion rate, i.e. the ratio of visitors who completed the signup form and successfully navigated to the next page to all those who came to the New Owner page. 
+### 3.2 Event Tracing
 
-In order to demonstrate the power of [Variant Server's Extension API](http://getvariant.com/resources/docs/0-9/experience-server/user-guide/#section-8), the demo application is configured with two lifecycle hooks: [`SafariDisqualifier`](https://github.com/getvariant/variant-server-extapi/blob/master/src/main/java/com/variant/server/ext/demo/SafariDisqualHook.java) and [`ChromeTargeter`](https://github.com/getvariant/variant-server-extapi/blob/master/src/main/java/com/variant/server/ext/demo/ChromeTargetingHook.java). The former disqualifies all traffic coming from a Safari browser, and the latter targets all traffic coming from a Chrome browser to the control experience. Obviously, both of these lifecycle hooks are contrived and only serve to illustrate the power of the server-side ExtAPI.
-
-If you visit the Petclinic site using a Safari browser, your experience will be equivalent to there being no experiment at all: you will always see the existing experience and your visit to the New Owner page will not trigger Variant events. Similarly, if you use a Chrome browser, you will always see the existing experience, but when you touch instrumented pages Variant will generate and log experiment related events. Although this behavior may seem contrived, it demonstrates how easy it is to inject experiment qualification or targeting semantics into your Variant server.
-
-If you navigate to the New Owner page in any other browser, you may land on either of the three variants. Once there, you will notice the `STATE-VISIT` event in the server log (after a short delay due to the asynchronous nature of the server event writer):
+The variation schema for this demo does not specify a tracing event flusher, deferring to the default [EventFlusherAppLogger](https://www.getvariant.com/javadoc/0.9/com/variant/server/api/EventFlusherAppLogger.html), which appends trace events to the server loger file `log/variant.log`:  
 
 ```
-[info] c.v.s.e.EventFlusherAppLogger - {event_name:'$STATE_VISIT', created_on:'1500325855912', event_value:'newOwner', session_id:'55D817210864DB27', event_experiences:[{test_name:'NewOwnerTest', experience_name:'tosCheckbox', is_control:false}], event_params:[{key:'PATH', value:'/owners/new/variant/newOwnerTest.tosCheckbox'}, {key:'$REQ_STATUS', value:'OK'}]}
-[info] c.v.s.e.EventWriter$FlusherThread - Flushed 1 event(s) in 00:00:00.002
+[info] 20:03:19.431 c.v.s.e.EventWriter$FlusherThread - Flushed 1 event(s) in 00:00:00.000
+[info] 20:03:40.444 c.v.s.a.EventFlusherAppLogger - {event_name:'$STATE_VISIT', created_on:'1538967820228', session_id:'11BAEABC9F08B6F8', event_experiences:[{test_name:'ScheduleVisitTest', experience_name:'noLink', is_control:true}], event_attributes:[{key:'$STATE', value:'vets'}, {key:'HTTP_STATUS', value:'200'}, {key:'$STATUS', value:'Committed'}]}
 ```
 
-`STATE-VISIT` event is automatically generated by Variant each time a user session visits a web page that is instrumented by a live Variant experiment. 
+The `STATE-VISIT` event is automatically triggered by Variant each time a user session visits an instrumented Web page. Note the delay between the time your session lands on an instrumented page and when the event is flushed to the log. This is due to the asynchronous nature of Variant's event writer. You can reduce the lag by changing the value of the `event.writer.max.delay` server configuration paramenter in the `conf/variant.conf` file. 
 
-Out-of-the-box, Variant server's event writer is configured to flush event to the server log file. In real life, you will likely use an event flusher that persists Variant events to some more manageable persistent storage. Variant server comes with event flushers for H2 and PostgreSQL relational databases, which you can [configure to match your environment](http://getvariant.com/resources/docs/0-9/experience-server/reference/#section-4.3).
+You can also [configure a different trace event flusher](http://getvariant.com/resources/docs/0-9/experience-server/reference/#section-4.3) to utilize a persistence mechanism of your choice. 
 
-If you happen to return to the New Owner page, you will always see the same experience &mdash; the feature known as targeting stability. The Pet Clinic demo application comes pre-configured with the HTTP cookie based implementation. If you want to let Variant re-target your session, simply remove both `variant-target` and `variant-ssnid` cookies from your browser.
+Trace events provide the basis for analysing variations. Features can be programmatically disabled if trace events indicate an unexpected failure, and experiments can be analized for target metrics and statistical significance.
 
 ## 4. Discussion
 
