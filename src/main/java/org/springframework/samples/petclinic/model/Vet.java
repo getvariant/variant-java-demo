@@ -85,8 +85,8 @@ public class Vet extends Person {
     	
     	// Emulate an intermittend problem in the feature.  (Change the threshold)
     	//if (rand.nextFloat() < 0.9) {
-    	//	throw new RuntimeException("***************** Vroom! ********************");
-    	//}
+    //		throw new RuntimeException("***************** Vroom! ********************");
+    //	}
 
     	// Random hourly rate btwn 60 and 100.
     	return new DecimalFormat("$#.00").format(rand.nextInt(41) + 60);

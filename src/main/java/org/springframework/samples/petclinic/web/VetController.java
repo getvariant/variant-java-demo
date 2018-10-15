@@ -52,14 +52,14 @@ public class VetController {
     }
 
     // --------------  ScheduleVisit experiment  ----------------- \\\ 
-    @RequestMapping(value={"/vets.xml","/vets__ScheduleVisit_withLink.html"})
-    public String showVetListWithScheduleVisitColumn(Map<String, Object> model) {
+   // @RequestMapping(value={"/vets.xml","/vets__ScheduleVisit_withLink.html"})
+   // public String showVetListWithScheduleVisitColumn(Map<String, Object> model) {
 
-        Vets vets = new Vets();
-        vets.getVetList().addAll(this.clinicService.findVets());
-        model.put("vets", vets);
-        return "vets/vetList__ScheduleVisit_withLink";
-    }
+//        Vets vets = new Vets();
+  //      vets.getVetList().addAll(this.clinicService.findVets());
+  //      model.put("vets", vets);
+  //      return "vets/vetList__ScheduleVisit_withLink";
+  //  }
    // ------------  End ScheduleVisit experiment  ----------------- ///
      
     @RequestMapping("/vets.json")

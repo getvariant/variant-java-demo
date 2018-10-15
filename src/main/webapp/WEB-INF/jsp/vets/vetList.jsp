@@ -53,7 +53,33 @@
            }
     %>
     
-    </datatables:table>
+    
+    
+    
+    <%
+       VariantJspHelper helper2 = new VariantJspHelper(request, response);
+       Optional<String> liveExperienceName2 = helper2.getLiveExperienceInVariation("ScheduleVisitTest");
+       
+       try {
+           
+	       if (liveExperienceName2.isPresent() && liveExperienceName2.get().equals("withLink")) {
+	       
+    %>
+    
+              <datatables:column title="Availability">
+                <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule an appt</a>
+        </datatables:column>
+    
+    
+    <%      
+              }
+           }
+           catch (Exception e) {
+              helper2.failRequest();   
+           }
+    %>
+    
+        </datatables:table>
     
     <table class="table-buttons">
         <tr>
@@ -63,6 +89,7 @@
             <td>
                 <a href="<spring:url value="/vets.json" htmlEscape="true" />">View as JSon</a>
             </td>
+   	   
         </tr>
     </table>
 
