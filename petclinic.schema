@@ -9,7 +9,7 @@
 {
    'meta':{
       'name':'petclinic',
-      'comment':'Variation schema for experiments on the Pet Clinic demo application'
+      'comment':'Variant schema for the Pet Clinic demo application'
    },
 
    'states':[
@@ -39,6 +39,7 @@
 
       /*
        * Vet's hourly rate feature toggle on the vets page only.
+       * Demonstrates lazy instrumentation.
        */ 
 
      {                                                      
@@ -69,7 +70,8 @@
       },
 
       /*
-       * The Book a Visit Experiment on 2 pages.
+       * The Schedule-a-Visit Experiment on 2 pages.
+       * Demonstrate eager instrumentation and conjoint variation concurrency.
        */ 
       
       {                                                      
