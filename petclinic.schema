@@ -91,35 +91,7 @@
          'onStates':[
             {                    
                // The Vets page is instrumented by both variations
-               'stateRef':'vets',                  
-               'variants':[                                  
-                  {  
-                	 // Proper variant - when the rate column feature is in control.
-                     'experienceRef': 'withLink',
-                     'parameters': [
-                        {
-                           'name':'path',
-                           'value':'/vets__ScheduleVisit_withLink.html'
-                        }
-                     ]
-                  },                                        
-                  {                                          
-                 	 // Hybrid variant - when the rate column feature is also in a variant.
-                     'experienceRef': 'withLink',
-                     'conjointExperienceRefs': [                         
-                        {                                                 
-                           'variationRef': 'VetsHourlyRateFeature',
-                           'experienceRef': 'rateColumn'                           
-                        }                                                 
-                     ],                                                  
-                     'parameters': [
-                        {
-                           'name':'path',
-                           'value':'/vets__ScheduleVisit_withLink.html'
-                        }
-                     ]                                             
-                  }
-               ]                                             
+               'stateRef':'vets'              
             },
             {                                                
                'stateRef':'newVisit',                    
