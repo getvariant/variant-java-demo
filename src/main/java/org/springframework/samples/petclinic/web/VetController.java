@@ -16,13 +16,27 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.variant.client.Session;
+import com.variant.client.StateRequest;
+import com.variant.client.VariantException;
+import com.variant.client.servlet.demo.VariantContext;
+import com.variant.core.schema.Schema;
+import com.variant.core.schema.State;
+import com.variant.core.schema.Variation.Experience;
 
 /**
  * @author Juergen Hoeller
@@ -34,7 +48,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class VetController {
 
     private final ClinicService clinicService;
-
+    private final Logger LOG = LoggerFactory.getLogger(VetController.class);
 
     @Autowired
     public VetController(ClinicService clinicService) {
@@ -42,25 +56,33 @@ public class VetController {
     }
 
     @RequestMapping(value={"/vets.xml","/vets.html"})
-    public String showVetList(Map<String, Object> model) {
+    public String showVetList(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
         // so it is simpler for Object-Xml mapping
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
         model.put("vets", vets);
+        
+        // Obtain Variant session and target it for the this state.
+        Session variantSsn = VariantContext.getSession(request);
+        if (variantSsn != null) {
+        	try {
+        		variantSsn.getAttributes().put("userId", "12345");
+        		Schema schema = variantSsn.getSchema();
+        		State vetsPage = schema.getState("vets").get();
+        		StateRequest req = variantSsn.targetForState(vetsPage);
+        		Optional<Experience> liveExperience = req.getLiveExperience(schema.getVariation("VetsHourlyRateFeature").get());
+                liveExperience.ifPresent((exp) -> model.put("hourlyRateExperience", exp.getName()));
+                req.commit(response);
+        	}
+        	catch (VariantException vex) {
+        		variantSsn.getStateRequest().ifPresent((req) -> req.fail(response));
+        		LOG.error("Unexpected VariantException", vex);
+        	}
+        }
+        
         return "vets/vetList";
     }
-
-    // --------------  ScheduleVisit experiment  ----------------- \\\ 
-   // @RequestMapping(value={"/vets.xml","/vets__ScheduleVisit_withLink.html"})
-   // public String showVetListWithScheduleVisitColumn(Map<String, Object> model) {
-
-//        Vets vets = new Vets();
-  //      vets.getVetList().addAll(this.clinicService.findVets());
-  //      model.put("vets", vets);
-  //      return "vets/vetList__ScheduleVisit_withLink";
-  //  }
-   // ------------  End ScheduleVisit experiment  ----------------- ///
      
     @RequestMapping("/vets.json")
     public @ResponseBody Vets showResourcesVetList() {

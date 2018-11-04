@@ -13,26 +13,8 @@
    },
 
    'states':[
-      { 
-         // The vets page
-         'name':'vets',
-         'parameters': [
-            {
-               'name':'path',
-               'value':'/petclinic/vets.html'
-            }
-         ]
-      },
-      {
-         // The new visit page
-         'name':'newVisit',
-         'parameters': [
-            {
-               'name':'path',
-               'value':'/petclinic/owners/~\\d+/pets/~\\d+/visits/new'
-            }
-         ]
-      } 
+      {'name':'vets'},
+      {'name':'newVisit'} 
    ],                                                        
 
    'variations':[
@@ -59,20 +41,22 @@
             {                                                
                'stateRef':'vets'
             }
-         ],
-         'hooks':[
+         ]
+/*
+         , 'hooks':[
             {
                // Assigns all Chrome traffic to the control experience
                'name':'ChromeTargeter',
                'class':'com.variant.server.ext.demo.ChromeTargetingHook'
             }
          ]
-      },
+*/
+      }
 
       /*
        * The Schedule-a-Visit Experiment on 2 pages.
        * Demonstrate eager instrumentation and conjoint variation concurrency.
-       */ 
+       *
       
       {                                                      
          'name':'ScheduleVisitTest',
@@ -109,5 +93,6 @@
             }
          ]
       }
+*/
    ]
 }

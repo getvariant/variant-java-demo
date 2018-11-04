@@ -6,6 +6,7 @@
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 
 <%@ page import="java.util.Optional" %>
+<%@ page import="com.variant.core.schema.Variation.Experience" %>
 <%@ page import="com.variant.client.servlet.demo.VariantJspHelper" %>
 
 <html lang="en">
@@ -32,12 +33,7 @@
         </datatables:column>
               
     <%
-       VariantJspHelper helper = new VariantJspHelper(request, response);
-       Optional<String> liveExperienceName = helper.getLiveExperienceInVariation("VetsHourlyRateFeature");
-       
-       try {
-           
-	       if (liveExperienceName.isPresent() && liveExperienceName.get().equals("rateColumn")) {
+	   if ("rateColumn".equals(request.getAttribute("hourlyRateExperience"))) {
     %>
     
         <datatables:column title="Hourly Rate">
@@ -45,13 +41,7 @@
         </datatables:column>
     
     
-    <%      
-              }
-           }
-           catch (Exception e) {
-              helper.failRequest();   
-           }
-    %>
+    <% } %>
     
     
     
