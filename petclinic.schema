@@ -41,16 +41,14 @@
             {                                                
                'stateRef':'vets'
             }
-         ]
-/*
-         , 'hooks':[
+         ],
+         'hooks':[
             {
-               // Assigns all Chrome traffic to the control experience
-               'name':'ChromeTargeter',
-               'class':'com.variant.server.ext.demo.ChromeTargetingHook'
+               'name':'durableTargeter',
+               'class':'com.edulastic.variant.extapi.DurableTargetingHook',
+               'init':{'url':'jdbc:mysql://localhost/variant?user=variant&password=variant'} 
             }
          ]
-*/
       }
 
       /*
