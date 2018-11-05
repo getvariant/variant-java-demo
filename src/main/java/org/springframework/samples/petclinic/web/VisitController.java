@@ -17,8 +17,12 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
@@ -32,6 +36,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.variant.client.Session;
+import com.variant.client.StateRequest;
+import com.variant.client.VariantException;
+import com.variant.client.servlet.demo.VariantContext;
+import com.variant.core.schema.Schema;
+import com.variant.core.schema.State;
+
 /**
  * @author Juergen Hoeller
  * @author Ken Krebs
@@ -41,8 +52,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class VisitController {
 
+    private final Logger LOG = LoggerFactory.getLogger(VisitController.class);
+    		
     private final ClinicService clinicService;
-
 
     @Autowired
     public VisitController(ClinicService clinicService) {
@@ -73,7 +85,24 @@ public class VisitController {
 
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is called
     @RequestMapping(value = "/owners/*/pets/{petId}/visits/new", method = RequestMethod.GET)
-    public String initNewVisitForm(@PathVariable("petId") int petId, Map<String, Object> model) {
+    public String initNewVisitForm(HttpServletRequest request, HttpServletResponse response, @PathVariable("petId") int petId, Map<String, Object> model) {
+        // Obtain Variant session and target it for the this state.
+        Session variantSsn = VariantContext.getSession(request);
+        if (variantSsn != null) {
+        	try {
+        		variantSsn.getAttributes().put("userId", "12345");
+        		Schema schema = variantSsn.getSchema();
+        		State newVisitPage = schema.getState("newVisit").get();
+        		StateRequest req = variantSsn.targetForState(newVisitPage);
+        		req.getLiveExperience(schema.getVariation("ScheduleVisitTest").get()).ifPresent(
+        				(exp) -> model.put("scheduleVisitExperience", exp.getName()));
+                req.commit(response); // Should be later
+        	}
+        	catch (VariantException vex) {
+        		variantSsn.getStateRequest().ifPresent((req) -> req.fail(response));
+        		LOG.error("Unexpected VariantException", vex);
+        	}
+        }
         return "pets/createOrUpdateVisitForm";
     }
 
@@ -87,15 +116,6 @@ public class VisitController {
             return "redirect:/owners/{ownerId}";
         }
     }
-
-    // --------------  BookAVisit experiment  ----------------- \\\ 
-
-    @RequestMapping(value = "/owners/*/pets/{petId}/visits/new__ScheduleVisit_withLink", method = RequestMethod.GET)
-    public String initNewVisitFormWithVetClumn(@PathVariable("petId") int petId, Map<String, Object> model) {
-        return "pets/createOrUpdateVisitForm__ScheduleVisit_withLink";
-    }
-
-    // ------------  End BookAVisit experiment  ----------------- ///
 
     @RequestMapping(value = "/owners/*/pets/{petId}/visits", method = RequestMethod.GET)
     public String showVisits(@PathVariable int petId, Map<String, Object> model) {

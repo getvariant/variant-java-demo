@@ -16,7 +16,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +35,6 @@ import com.variant.client.VariantException;
 import com.variant.client.servlet.demo.VariantContext;
 import com.variant.core.schema.Schema;
 import com.variant.core.schema.State;
-import com.variant.core.schema.Variation.Experience;
 
 /**
  * @author Juergen Hoeller
@@ -47,8 +45,9 @@ import com.variant.core.schema.Variation.Experience;
 @Controller
 public class VetController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(VetController.class);
+
     private final ClinicService clinicService;
-    private final Logger LOG = LoggerFactory.getLogger(VetController.class);
 
     @Autowired
     public VetController(ClinicService clinicService) {
@@ -71,9 +70,11 @@ public class VetController {
         		Schema schema = variantSsn.getSchema();
         		State vetsPage = schema.getState("vets").get();
         		StateRequest req = variantSsn.targetForState(vetsPage);
-        		Optional<Experience> liveExperience = req.getLiveExperience(schema.getVariation("VetsHourlyRateFeature").get());
-                liveExperience.ifPresent((exp) -> model.put("hourlyRateExperience", exp.getName()));
-                req.commit(response);
+        		req.getLiveExperience(schema.getVariation("VetsHourlyRateFeature").get()).ifPresent(
+        				(exp) -> model.put("hourlyRateExperience", exp.getName()));
+        		req.getLiveExperience(schema.getVariation("ScheduleVisitTest").get()).ifPresent(
+        				(exp) -> model.put("scheduleVisitExperience", exp.getName()));
+                req.commit(response); // Should be later
         	}
         	catch (VariantException vex) {
         		variantSsn.getStateRequest().ifPresent((req) -> req.fail(response));

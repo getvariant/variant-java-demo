@@ -31,6 +31,11 @@
             <th>Birth Date</th>
             <th>Type</th>
             <th>Owner</th>
+            
+    <% if ("withLink".equals(request.getAttribute("scheduleVisitExperience"))) { %>
+            <th>Owner</th>
+    <% } %>
+                
         </tr>
         </thead>
         <tr>
@@ -38,6 +43,11 @@
             <td><joda:format value="${visit.pet.birthDate}" pattern="yyyy/MM/dd"/></td>
             <td><c:out value="${visit.pet.type.name}"/></td>
             <td><c:out value="${visit.pet.owner.firstName} ${visit.pet.owner.lastName}"/></td>
+
+    <% if ("withLink".equals(request.getAttribute("scheduleVisitExperience"))) { %>
+            <td><%= request.getParameter("vet")%></td>
+    <% } %>
+
         </tr>
     </table>
 

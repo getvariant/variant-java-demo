@@ -7,7 +7,6 @@
 
 <%@ page import="java.util.Optional" %>
 <%@ page import="com.variant.core.schema.Variation.Experience" %>
-<%@ page import="com.variant.client.servlet.demo.VariantJspHelper" %>
 
 <html lang="en">
 
@@ -32,9 +31,7 @@
             <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
         </datatables:column>
               
-    <%
-	   if ("rateColumn".equals(request.getAttribute("hourlyRateExperience"))) {
-    %>
+    <% if ("rateColumn".equals(request.getAttribute("hourlyRateExperience"))) { %>
     
         <datatables:column title="Hourly Rate">
                 <c:out value="${vet.rate}"/>
@@ -44,30 +41,14 @@
     <% } %>
     
     
+    <% if ("withLink".equals(request.getAttribute("scheduleVisitExperience"))) { %>
     
-    
-    <%
-       VariantJspHelper helper2 = new VariantJspHelper(request, response);
-       Optional<String> liveExperienceName2 = helper2.getLiveExperienceInVariation("ScheduleVisitTest");
-       
-       try {
-           
-	       if (liveExperienceName2.isPresent() && liveExperienceName2.get().equals("withLink")) {
-	       
-    %>
-    
-              <datatables:column title="Availability">
-                <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule an appt</a>
+        <datatables:column title="Availability">
+           <a href="/petclinic/owners/11/pets/14/visits/new/?vet=<c:out value="${vet.firstName}+${vet.lastName}"></c:out>">Schedule an appt</a>
         </datatables:column>
     
     
-    <%      
-              }
-           }
-           catch (Exception e) {
-              helper2.failRequest();   
-           }
-    %>
+    <% } %>
     
         </datatables:table>
     
