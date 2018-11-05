@@ -9,7 +9,14 @@
 {
    'meta':{
       'name':'petclinic',
-      'comment':'Variant schema for the Pet Clinic demo application'
+      'comment':'Variant schema for the Pet Clinic demo application',
+      'hooks':[
+         {
+            'name':'durableTargeter',
+            'class':'com.edulastic.variant.extapi.DurableTargetingHook',
+            'init':{'url':'jdbc:mysql://localhost/variant?user=variant&password=variant'} 
+         }
+      ]
    },
 
    'states':[
@@ -38,23 +45,14 @@
             }              
          ],                                                  
          'onStates':[
-            {                                                
-               'stateRef':'vets'
-            }
-         ],
-         'hooks':[
-            {
-               'name':'durableTargeter',
-               'class':'com.edulastic.variant.extapi.DurableTargetingHook',
-               'init':{'url':'jdbc:mysql://localhost/variant?user=variant&password=variant'} 
-            }
+            {'stateRef':'vets'}
          ]
-      }
+      },
 
       /*
        * The Schedule-a-Visit Experiment on 2 pages.
        * Demonstrate eager instrumentation and conjoint variation concurrency.
-       *
+       */
       
       {                                                      
          'name':'ScheduleVisitTest',
@@ -71,26 +69,9 @@
             }                                              
          ],                                                  
          'onStates':[
-            {                    
-               // The Vets page is instrumented by both variations
-               'stateRef':'vets'              
-            },
-            {                                                
-               'stateRef':'newVisit',                    
-               'variants':[                                  
-                  {                                          
-                     'experienceRef': 'withLink',
-                     'parameters': [
-                        {
-                           'name':'path',
-                           'value':'/owners/11/pets/14/visits/new__ScheduleVisit_withLink'
-                        }
-                     ]
-                  }
-               ]
-            }
+            {'stateRef':'vets'},
+            {'stateRef':'newVisit'}
          ]
       }
-*/
    ]
 }
