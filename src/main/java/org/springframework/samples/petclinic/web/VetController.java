@@ -66,7 +66,7 @@ public class VetController {
         Session variantSsn = VariantContext.getSession(request);
         if (variantSsn != null) {
         	try {
-        		variantSsn.getAttributes().put("userId", "12345");
+        		variantSsn.getAttributes().put("user-agent", request.getHeader("User-Agent"));
         		Schema schema = variantSsn.getSchema();
         		State vetsPage = schema.getState("vets").get();
         		StateRequest req = variantSsn.targetForState(vetsPage);

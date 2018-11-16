@@ -90,7 +90,6 @@ public class VisitController {
         Session variantSsn = VariantContext.getSession(request);
         if (variantSsn != null) {
         	try {
-        		variantSsn.getAttributes().put("userId", "12345");
         		Schema schema = variantSsn.getSchema();
         		State newVisitPage = schema.getState("newVisit").get();
         		StateRequest req = variantSsn.targetForState(newVisitPage);
