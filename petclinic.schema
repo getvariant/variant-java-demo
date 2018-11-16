@@ -9,21 +9,7 @@
 {
    'meta':{
       'name':'petclinic',
-      'comment':'Variant schema for the Pet Clinic demo application',
-      'flusher': {
-    	  'class':'com.variant.extapi.standard.flush.jdbc.TraceEventFlusherMysql',
-    	  'init':{"url":"jdbc:mysql://localhost/variant", "user":"variant", "password":"variant"}
-
-      }
-/*
-      'hooks':[
-         {
-            'name':'durableTargeter',
-            'class':'com.edulastic.variant.extapi.DurableTargetingHook',
-            'init':{'url':'jdbc:mysql://localhost/variant?user=variant&password=variant'} 
-         }
-      ]
-*/
+      'comment':'Variant schema for the Pet Clinic demo application'
    },
 
    'states':[
