@@ -33,7 +33,7 @@
             <th>Owner</th>
             
     <% if ("withLink".equals(request.getAttribute("scheduleVisitExperience"))) { %>
-            <th>Owner</th>
+            <th>Doctor</th>
     <% } %>
                 
         </tr>

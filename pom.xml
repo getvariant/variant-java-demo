@@ -66,19 +66,19 @@
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client-servlet-adapter</artifactId>
-           <version>0.9.3</version>
+           <version>0.10.0</version>
         </dependency>
 		
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client</artifactId>
-           <version>0.9.3</version>
+           <version>0.10.0</version>
         </dependency>
 
       <dependency>
          <groupId>com.variant</groupId>
          <artifactId>variant-core</artifactId>
-         <version>0.9.3</version>
+         <version>0.10.0</version>
       </dependency>
 
        <dependency>
@@ -86,19 +86,13 @@
           <artifactId>httpclient</artifactId>
           <version>4.5.1</version>
         </dependency>        
-
-      <dependency>
-         <groupId>com.typesafe</groupId>
-         <artifactId>config</artifactId>
-         <version>1.2.1</version>
-      </dependency>
-
+<!--
       <dependency>
          <groupId>org.apache.commons</groupId>
 	 <artifactId>commons-lang3</artifactId>
 	 <version>3.4</version>
       </dependency>
-
+-->
       <dependency>
          <groupId>org.slf4j</groupId>
 	     <artifactId>slf4j-api</artifactId>

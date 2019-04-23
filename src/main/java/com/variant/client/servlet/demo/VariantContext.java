@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 
-import com.variant.client.ConfigKeys;
 import com.variant.client.Connection;
 import com.variant.client.Session;
 import com.variant.client.VariantException;
@@ -17,8 +16,8 @@ import com.variant.client.servlet.ServletVariantClient;
 public class VariantContext implements WebApplicationInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(VariantContext.class);
-	private static final ServletVariantClient client = ServletVariantClient.Factory.getInstance();
-	private static final String schemaName = "petclinic";
+	private static final ServletVariantClient client = new ServletVariantClient.Builder().build();
+	private static final String schemaURL = "variant://localhost:5377/petclinic";
 	
 	private static Connection conn;
 	
@@ -40,7 +39,7 @@ public class VariantContext implements WebApplicationInitializer {
 	 */
 	public static Session getSession(HttpServletRequest request) {
 		if (conn == null) {
-			if (LOG.isDebugEnabled()) LOG.debug("Attempting to reconnect to Variant schema [" + schemaName + "]");
+			if (LOG.isDebugEnabled()) LOG.debug("Attempting to reconnect to Variant schema [" + schemaURL + "]");
 			connect();
 		}
 		return conn == null ? null : conn.getOrCreateSession(request); 
@@ -51,20 +50,12 @@ public class VariantContext implements WebApplicationInitializer {
 	 */
 	private static void connect() {
 		try {
-			conn = client.connectTo(schemaName);
-			if (conn == null) {
-				LOG.error(
-						"Variation schema [" + schemaName + "] does not exist on " + 
-						client.getConfig().getString(ConfigKeys.SERVER_URL));
-			}
-			else {
-				LOG.info("Connected to Variant schema [" + schemaName + "]");
-			}
+			conn = client.connectTo(schemaURL);
+			LOG.info("Connected to Variant URL [" + schemaURL + "]");
 		}
 		catch (VariantException vex) {
 			LOG.error(
-					"Failed to connect to Variant server at " + 
-					client.getConfig().getString(ConfigKeys.SERVER_URL), vex);
+					"Failed to connect to Variant URL [" + schemaURL + "]", vex);
 		}		
 	}
  }
