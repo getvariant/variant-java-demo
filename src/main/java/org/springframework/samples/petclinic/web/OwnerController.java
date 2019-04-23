@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.web;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,12 @@ public class OwnerController {
     public String initFindForm(Map<String, Object> model) {
         model.put("owner", new Owner());
         return "owners/findOwners";
+    }
+
+    @RequestMapping(value = "/owners/login", method = RequestMethod.GET)
+    public String loginUser(Map<String, Object> model, HttpServletRequest request) {
+    	request.getSession().setAttribute("user", request.getParameter("user"));
+    	return "redirect:/";
     }
 
     @RequestMapping(value = "/owners", method = RequestMethod.GET)

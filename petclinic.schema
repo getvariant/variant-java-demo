@@ -39,13 +39,6 @@
          ],                                                  
          'onStates':[
             {'stateRef':'vets'}
-         ],
-         'hooks': [
-        	{
-        		// Target Chrome traffic to control.
-        		'name':'chromeControlTargeter',
-        		'class':'com.variant.extapi.standard.hook.ChromeTargetingHook'
-        	} 
          ]
       },
 
@@ -71,6 +64,14 @@
          'onStates':[
             {'stateRef':'vets'},
             {'stateRef':'newVisit'}
+         ],
+         'hooks': [
+        	{
+        		// Target Chrome traffic to control.
+        		'name':'chromeControlTargeter',
+        		'class':'com.variant.extapi.standard.demo.UserQualifyingHook',
+        		'init': {'blackList':['Nikita Krushchev']}
+        	} 
          ]
       }
    ]
