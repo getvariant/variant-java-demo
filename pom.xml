@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
+
+<!--+
+    | Variant Experience Server 0.10 Demo application.
+    | Based on the Spring MVC Petclinic demo application.
+    |
+    +-->
+    	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.variant</groupId>
 	<artifactId>java-servlet-demo-petclinic</artifactId>
@@ -15,7 +21,8 @@
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
+        <variant.version>0.10.0</variant.version>
+    	        
 		<!-- Spring -->
 		<spring-io-platform.version>1.1.3.RELEASE</spring-io-platform.version>
 		<spring-data-jdbc.version>1.1.0.RELEASE</spring-data-jdbc.version>
@@ -59,26 +66,32 @@
 
 	<dependencies>
 		
-        <!--  
+        <!-- 
             Variant Java Servlet adapter and its transitive dependencies
             These are available in this projects's lib/ directory.
         -->
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client-servlet-adapter</artifactId>
-           <version>0.10.0</version>
+           <version>${variant.version}</version>
+           <scope>system</scope>
+		   <systemPath>${project.basedir}/lib/variant-java-client-servlet-adapter-${variant.version}.jar</systemPath>
         </dependency>
 		
         <dependency>
            <groupId>com.variant</groupId>
            <artifactId>variant-java-client</artifactId>
-           <version>0.10.0</version>
+           <version>${variant.version}</version>
+           <scope>system</scope>
+		   <systemPath>${project.basedir}/lib/variant-java-client-${variant.version}.jar</systemPath>
         </dependency>
 
       <dependency>
          <groupId>com.variant</groupId>
          <artifactId>variant-core</artifactId>
-         <version>0.10.0</version>
+         <version>${variant.version}</version>
+         <scope>system</scope>
+         <systemPath>${project.basedir}/lib/variant-core-${variant.version}.jar</systemPath>
       </dependency>
 
        <dependency>
