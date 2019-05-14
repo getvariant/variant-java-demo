@@ -71,8 +71,7 @@
          ],
          'hooks': [
         	{
-        		// Target Chrome traffic to control.
-        		'name':'chromeControlTargeter',
+        		// Disqualify blacklisted users.
         		'class':'com.variant.extapi.std.demo.UserQualifyingHook',
         		'init': {'blackList':['Nikita Krushchev']}
         	} 
