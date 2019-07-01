@@ -17,9 +17,9 @@ Note, that this demo application is built on top the popular [Pet Clinic webapp]
 
 ## 1. Start Variant Server
 
-__∎ [Download and install](https://www.getvariant.com/resources/docs/0-10/application-iteration-server/reference/#section-1) Variant AIM Server.__
+__∎ [Download and install](https://www.getvariant.com/resources/docs/0-10/application-iteration-server/reference/#section-1) Variant AIM Server__
 
-__∎ Start Variant server:__
+__∎ Start Variant Server__
 ```
 $ /path/to/server/bin/variant.sh start
 ```
@@ -38,12 +38,12 @@ __∎ Clone This Repository:__
 ```
 $ git clone https://github.com/getvariant/variant-java-demo.git
 ```
-__∎ Change directory to `variant-java-demo`__
+__∎ Change Directory to `variant-java-demo`__
 ```
 $ cd variant-java-demo
 ```
 
-__∎ Copy the variation schema to the server's `schemata/` directory:__
+__∎ Copy the Variation Schema to the Server's `schemata/` Directory:__
 ```
 $ cp petclinic.schema /path/to/server/schemata
 ```
@@ -70,7 +70,7 @@ Variant Demo application is built on top of the [servlet adapter](https://github
 % mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.3 -Dpackaging=jar
 ```
 
-__∎ Start the demo application:__
+__∎ Start the Demo Application:__
 ```
 % mvn tomcat7:run
 ```
@@ -81,7 +81,7 @@ INFO  2017-08-03 16:46:43 VariantFilter - Connected to schema [petclinic]
 ```
 The demo application is accessible at <span class="variant-code">http://localhost:9966/petclinic/</span>.
 
-• Optionally, configure a custom Variant server URL
+__∎ Optionally, Configure a Custom Variant Server URL__
 
 By default, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf) by setting the `server.url` property. Restart Variant server to have the new value take effect.
 
