@@ -68,12 +68,11 @@ If all went well, you will see the following at the bottom of the console output
 INFO: Starting Servlet Engine: Apache Tomcat/7.0.47
 INFO  2019-07-01 15:53:12 VariantContext - Connected to Variant URL [variant://localhost:5377/petclinic]
 ```
-The demo application is accessible at <span class="variant-code">http://localhost:9966/petclinic/</span>.
+The demo application is now accessible at <span class="variant-code">http://localhost:9966/petclinic/</span>.
 
 __∎ Optionally, Configure a Custom Variant Server URL__
 
-By default, the demo application looks for Variant server at the default URL `http://localhost:5377/variant`. If your server is running elsewhere, you must update the Variant client configuration file [/src/main/resources/variant.conf](https://github.com/getvariant/variant-java-demo/blob/master/src/main/resources/variant.conf) by setting the `server.url` property. Restart Variant server to have the new value take effect.
-
+By default, the demo application looks for Variant server at the default URL `http://localhost:5377`. If your server is running elsewhere, you must update [VariantContext.java](https://github.com/getvariant/variant-java-demo/blob/0310112c63ae1922b3b75622d000421956301c4a/src/main/java/com/variant/client/servlet/demo/VariantContext.java#L20) and restart the demo application.
 
 ## 3. Run the Demo
 
