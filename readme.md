@@ -34,7 +34,7 @@ If all went well, the server console output should look something like this:
 
 ## 2. Deploy the Demo Appliction
 
-__∎ Clone This Repository:__
+__∎ Clone This Repository__
 ```
 $ git clone https://github.com/getvariant/variant-java-demo.git
 ```
@@ -58,26 +58,15 @@ Name: petclinic
    States: 2
    Variations: 2
 ```
-__∎ Install Maven Dependencies__
-
-Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository: 
-
-```
-% mvn install:install-file -Dfile=lib/variant-java-client-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client -Dversion=0.9.3 -Dpackaging=jar
-
-% mvn install:install-file -Dfile=lib/variant-core-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-core -Dversion=0.9.3 -Dpackaging=jar
-
-% mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.3 -Dpackaging=jar
-```
 
 __∎ Start the Demo Application:__
 ```
 % mvn tomcat7:run
 ```
-If all went well, you will see the following console output:
+If all went well, you will see the following at the bottom of the console output:
 ```
-INFO  2017-08-03 16:46:42 VariantConfigLoader - Found config resource [/variant.conf] as [/private/tmp/demo/variant-java-servlet-adapter/servlet-adapter-demo/target/classes/variant.conf]
-INFO  2017-08-03 16:46:43 VariantFilter - Connected to schema [petclinic]
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.47
+INFO  2019-07-01 15:53:12 VariantContext - Connected to Variant URL [variant://localhost:5377/petclinic]
 ```
 The demo application is accessible at <span class="variant-code">http://localhost:9966/petclinic/</span>.
 
