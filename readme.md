@@ -1,10 +1,9 @@
 ![Variant Logo](http://www.getvariant.com/wp-content/uploads/2016/07/VariantLogoSquare-100.png)
 
 # Variant Experience Server Demo Application
-### Release 0.9.3
 #### Requires: 
-* [Variant Java Client 0.9.3](https://www.getvariant.com/resources/docs/0-9/clients/variant-java-client/)
-* [Variant Experience Server 0.9.x](http://www.getvariant.com/resources/docs/0-9/experience-server/user-guide/) 
+* [Variant Java Client 0.10](https://www.getvariant.com/resources/docs/0-10/clients/variant-java-client/)
+* [Variant AIM Server 0.10](http://www.getvariant.com/resources/docs/0-10/application-iteration-server/user-guide/) 
 * Java 8 or later.
 
 This __Variant Demo Application__ demonstrates instrumentation of two simple experience variations: an experiment (A/B test) and a concurrent feature toggle on a Java servlet Web application. This demonstration will help you
