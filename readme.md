@@ -17,9 +17,9 @@ Note, that this demo application is built on top the popular [Pet Clinic webapp]
 
 ## 1. Start Variant Server
 
-• [Download and install](https://www.getvariant.com/resources/docs/0-10/application-iteration-server/reference/#section-1) Variant AIM Server.
+__∎ [Download and install](https://www.getvariant.com/resources/docs/0-10/application-iteration-server/reference/#section-1) Variant AIM Server.__
 
-• Start Variant server:
+__∎ Start Variant server:__
 ```
 $ /path/to/server/bin/variant.sh start
 ```
@@ -34,16 +34,16 @@ If all went well, the server console output should look something like this:
 
 ## 2. Deploy the Demo Appliction
 
-• Clone This Repository:
+__∎ Clone This Repository:__
 ```
 $ git clone https://github.com/getvariant/variant-java-demo.git
 ```
-• Change directory to `variant-java-demo`
+__∎ Change directory to `variant-java-demo`__
 ```
 $ cd variant-java-demo
 ```
 
-• Copy the variation schema to the server's `schemata/` directory:
+__∎ Copy the variation schema to the server's `schemata/` directory:__
 ```
 $ cp petclinic.schema /path/to/server/schemata
 ```
@@ -58,7 +58,7 @@ Name: petclinic
    States: 2
    Variations: 2
 ```
-• Install Maven Dependencies
+__∎ Install Maven Dependencies__
 
 Variant Demo application is built on top of the [servlet adapter](https://github.com/getvariant/variant-java-servlet-adapter). It is included in this repository's `/lib` directory and must be installed in your local Maven repository: 
 
@@ -70,7 +70,7 @@ Variant Demo application is built on top of the [servlet adapter](https://github
 % mvn install:install-file -Dfile=lib/variant-java-client-servlet-adapter-0.9.3.jar -DgroupId=com.variant -DartifactId=variant-java-client-servlet-adapter -Dversion=0.9.3 -Dpackaging=jar
 ```
 
-• Start the demo application:
+__∎ Start the demo application:__
 ```
 % mvn tomcat7:run
 ```
