@@ -9,11 +9,7 @@
 {
    'meta':{
       'name':'petclinic',
-      'comment':'Variant schema for the Pet Clinic demo application',
-      'flusher': {
-        'class':'com.variant.extapi.std.flush.TraceEventFlusherCsv',
-        'init':{'header':true, 'file':'/tmp/variant-trace-events-petclinic.csv'}
-       }
+      'comment':'Variant schema for the Pet Clinic demo application'
    },
 
    'states':[
