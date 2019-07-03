@@ -102,22 +102,22 @@ Since the  `Veterinarians` page is shared by both variations, it can have 4 vari
   <tr>
     <td>Control</td>
     <td>
-       <img src="https://github.com/getvariant/variant-java-demo/blob/767b758b2e145dca688bbc65e521e5ac804f4fb7/docs/img/Fig-1-all-control.png">
+       <img src="https://github.com/getvariant/variant-java-demo/blob/master/docs/img/Fig-1-all-control.png">
        Existing code path.
      </td>
     <td>
-        <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-appt-link.png">
+        <img src="https://github.com/getvariant/variant-java-demo/blob/master/docs/img/Fig-1-with-appt-link.png">
        With availability column. (Proper state variant).
      </td>
   </tr>
   <tr>
     <td>With Hourly Rate Column</td>
     <td>
-       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-with-hourly-rate.png">
+       <img src="https://github.com/getvariant/variant-java-demo/blob/master/docs/img/Fig-1-with-hourly-rate.png">
        With hourly rate column. (Proper state variant).
      </td>
     <td>
-       <img src="https://github.com/getvariant/variant-java-demo/blob/80424d4268bd6445569f05c2b3e0a431c784c14f/docs/img/Fig-1-hybrid.png">
+       <img src="https://github.com/getvariant/variant-java-demo/blob/master/docs/img/Fig-1-hybrid.png">
        With both columns. (Hybrid state variant).
      </td>
   </tr>
@@ -175,7 +175,7 @@ The variation schema used by this demo application can be found in this reposito
 The [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L27-L43) variation is instrumented on the single `Veterinarians` page and has two experiences `existing` (control) and `rateColumn` with randomized weights 3:1 in favor of the variant. 
 
 
-The [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L50-L75) variation is instrumented on two pages, starting on the `Veterinarians` page and ending on the `New Visit` page. Note the [`conjointVariationsRefs`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L55) specification, declaring the conjoint concurrence between the two variations. This specification tells Variant that 'ScheduleVisitTest` and `VetsHourlyReateFeature` are conjointly concurrent, i.e. that it's okay for Variant server to target a session for these two variations completely independently. Note also the [`UserQualifyingHook`](https://getvariant.github.io/variant-extapi-standard/com/variant/extapi/std/demo/UserQualifyingHook.html) lifecycle event hook which disqualifies blacklisted users from this feature.
+The [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L50-L75) variation is instrumented on two pages, starting on the `Veterinarians` page and ending on the `New Visit` page. Note the [`conjointVariationsRefs`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L52) specification, declaring the conjoint concurrence between the two variations. This specification tells Variant that 'ScheduleVisitTest` and `VetsHourlyReateFeature` are conjointly concurrent, i.e. that it's okay for Variant server to target a session for these two variations completely independently. Note also the [`UserQualifyingHook`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L69-L73) lifecycle event hook which disqualifies blacklisted users from this feature.
 
 Note the [two state variants](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L50-L75) on the `Veterinarians` page. They are needed to provide the new values of the `path` state parameter, specific to the two state variants. These values are utilized by the [`Variant servlet adapter`](https://github.com/getvariant/variant-java-servlet-adapter) to forward an incoming HTTP request to an alternate resource path.
 
