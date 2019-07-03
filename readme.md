@@ -168,6 +168,8 @@ Trace events provide the basis for analyzing variations. Features can be program
 
 ## 4. Instrumentation
 
+### 4.1 Instrumentaion Metadata
+
 The variation schema used by this demo application can be found in this repository's [`petclinic.schema`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema). The two states `vets``newVisit`correspond to the `Veterinarians` page and the `New Visit` page.
 
 The [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L27-L43) variation is instrumented on the single `Veterinarians` page and has two experiences `existing` (control) and `rateColumn` with randomized weights 3:1 in favor of the variant. 
@@ -175,10 +177,12 @@ The [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/bl
 
 The [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L50-L75) variation is instrumented on two pages, starting on the `Veterinarians` page and ending on the `New Visit` page. Note the [`conjointVariationsRefs`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L52) specification, declaring the conjoint concurrence between the two variations. This specification tells Variant that `ScheduleVisitTest` and `VetsHourlyReateFeature` are conjointly concurrent, i.e. that it's okay for Variant server to target a session for these two variations completely independently. Note also the [`UserQualifyingHook`](https://github.com/getvariant/variant-java-demo/blob/master/petclinic.schema#L69-L73) lifecycle event hook which disqualifies blacklisted users from this feature. This demonstrates the power of the server-side ExtAPI, which enables such highly reusable components which operate on the operational data but are entirely outside of the host application's code base.
 
-## 5 Implementations
+### 4.2 Instrumentation Code
 
-The `VetsHourlyRateFeature` variation does not specify any state parameter overrides, so if the session was targeted for the control experience in the covariant `ScheduleVisitTest` variation, `VariantFilter` lets the HTTP request fall through. Both experiences will proceed though the existing code path up until [`vets.jsp`](https://github.com/getvariant/variant-java-demo/blob/e783434ae9c5166d7c19e8ee6642714e12c6418d/src/main/webapp/WEB-INF/jsp/vets/vetList.jsp#L34-L54), where the new _Hourly Rate_ column is optionally displayed, depending on the live experience in effect. This type of experience instrumentation, where the code bifurcates as late in the code path as possible, is referred to as _lazy instrumentation_.
+Most of the instrumentation-related code is isolated in the class [`VariantContext`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/java/com/variant/client/servlet/demo/VariantContext.java#L65-L83). It is responsible for instantiating Variant client and a connection to the `petclinic` schema on Variant server. Additional instrumentation code is found in the respective controllers, e.g. the [`VetController`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/java/org/springframework/samples/petclinic/web/VetController.java) class.
 
-Alternatively, the `ScheduleVisitTest` variation makes use of the state parameter overrides. If a session is targeted to the `withLink` experience, `VariantFilter` forwards it to the new `/vets__ScheduleVisit_withLink.html` path, which is [mapped](https://github.com/getvariant/variant-java-demo/blob/e783434ae9c5166d7c19e8ee6642714e12c6418d/src/main/java/org/springframework/samples/petclinic/web/VetController.java#L54-L63) to the [`vets/vetList__ScheduleVisit_withLink.jsp`](https://github.com/getvariant/variant-java-demo/blob/e783434ae9c5166d7c19e8ee6642714e12c6418d/src/main/webapp/WEB-INF/jsp/vets/vetList__ScheduleVisit_withLink.jsp), which is a copy of the existing `vets/vetList.jsp` plus the implementation of the new _Availability_ column. This type of experience instrumentation, where the code bifurcates as early as possible, is referred to as _eager instrumentation_.
+## 5. Implementation
+
+The two experience are implemented on the JSP pages, e.g. the [`vetList.jsp`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/webapp/WEB-INF/jsp/vets/vetList.jsp#L34-L51).
 
 Updated for 0.9.3 on 8 October 2018.
