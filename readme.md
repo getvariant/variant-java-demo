@@ -80,7 +80,9 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 The demo consists of two variations:
 
-__The feature toggle `VetsHourlyRateFeature`__ exposes an early release of a the new feature on the `Veterinarians` page, which adds the _Hourly Rate_ column to the table.
+__The feature toggle `VetsHourlyRateFeature`__ exposes an early release of a the new feature, which adds the _Hourly Rate_ column to the `Veterinarians` page below.
+
+<img src="https://github.com/getvariant/variant-java-demo/blob/767b758b2e145dca688bbc65e521e5ac804f4fb7/docs/img/Fig-1-all-control.png">
 
 __The experiment `ScheduleVisitTest`__ validates another new feature, designed to improve new appointment bookings by displaying new _Availability_ column on the same same `Veterinarians` page.
 
