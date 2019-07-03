@@ -179,7 +179,7 @@ The [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/m
 
 ### 4.2 Instrumentation Code
 
-Most of the instrumentation-related code is isolated in the class [`VariantContext`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/java/com/variant/client/servlet/demo/VariantContext.java#L65-L83). It is responsible for instantiating Variant client and a connection to the `petclinic` schema on Variant server. Additional instrumentation code is found in the respective controllers, e.g. the [`VetController`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/java/org/springframework/samples/petclinic/web/VetController.java) class.
+Most of the instrumentation-related code is isolated in the class [`VariantContext`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/java/com/variant/client/servlet/demo/VariantContext.java). It is responsible for instantiating Variant client and a connection to the `petclinic` schema on Variant server. Additional instrumentation code is found in the respective controllers, e.g. the [`VetController`](https://github.com/getvariant/variant-java-demo/blob/master/src/main/java/org/springframework/samples/petclinic/web/VetController.java#L65-L83) class.
 
 ## 5. Implementation
 
