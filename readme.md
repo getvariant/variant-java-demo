@@ -153,7 +153,7 @@ If your session happened to be targeted to the variant experience in the `Schedu
 
 ### 3.2 Event Tracing
 
-The variation schema for this demo does not specify a tracing event flusher, deferring to the default [EventFlusherAppLogger](https://www.getvariant.com/javadoc/0.9/com/variant/server/api/EventFlusherAppLogger.html), which appends trace events to the server loger file `log/variant.log`:  
+The variation schema for this demo does not specify a tracing event flusher, deferring to the default [TraceEventFlusherServerLog](https://getvariant.github.io/variant-extapi-standard/com/variant/extapi/std/flush/TraceEventFlusherServerLog.html), which appends trace events to the server loger file `log/variant.log`:  
 
 ```
 [info] 20:03:19.431 c.v.s.e.EventWriter$FlusherThread - Flushed 1 event(s) in 00:00:00.000
@@ -162,7 +162,7 @@ The variation schema for this demo does not specify a tracing event flusher, def
 
 The `STATE-VISIT` event is automatically triggered by Variant each time a user session visits an instrumented Web page. Note the delay between the time your session lands on an instrumented page and when the event is flushed to the log. This is due to the asynchronous nature of Variant's event writer. You can reduce the lag by changing the value of the `event.writer.max.delay` server configuration parameter in the `conf/variant.conf` file. 
 
-You can also [configure a different trace event flusher](http://getvariant.com/resources/docs/0-9/experience-server/reference/#section-4.3) to utilize a persistence mechanism of your choice. 
+You can also [configure a different trace event flusher](https://www.getvariant.com/resources/docs/0-10/application-iteration-server/reference/#section-4.4.2) to utilize a persistence mechanism of your choice. 
 
 Trace events provide the basis for analyzing variations. Features can be programmatically disabled if trace events indicate an unexpected failure, and experiments can be analyzed for target metrics and statistical significance.
 
