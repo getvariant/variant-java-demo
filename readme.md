@@ -80,9 +80,9 @@ By default, the demo application looks for Variant server at the default URL `ht
 
 The demo consists of two variations:
 
-__The feature toggle [`VetsHourlyRateFeature`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L44-L74)__ exposes an early release of a the new feature on the `Veterinarians` page, which adds the _Hourly Rate_ column to the table.
+__The feature toggle `VetsHourlyRateFeature`__ exposes an early release of a the new feature on the `Veterinarians` page, which adds the _Hourly Rate_ column to the table.
 
-__The experiment [`ScheduleVisitTest`](https://github.com/getvariant/variant-java-demo/blob/9affd4cc3992e8adf109a79532a1de75764ea38f/petclinic.schema#L80-L142)__ validates another new feature, designed to improve new appointment bookings by displaying new _Availability_ column on the same same `Veterinarians` page. 
+__The experiment `ScheduleVisitTest`__ validates another new feature, designed to improve new appointment bookings by displaying new _Availability_ column on the same same `Veterinarians` page.
 
 Since the  `Veterinarians` page is shared by both variations, it can have 4 variants:
 
