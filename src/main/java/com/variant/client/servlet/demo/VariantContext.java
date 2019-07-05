@@ -17,7 +17,7 @@ public class VariantContext implements WebApplicationInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(VariantContext.class);
 	private static final ServletVariantClient client = new ServletVariantClient.Builder().build();
-	private static final String schemaURL = "variant://localhost:5377/petclinic";
+	private static final String variantURL = "variant://localhost:5377/petclinic";
 	
 	private static Connection conn;
 	
@@ -39,7 +39,7 @@ public class VariantContext implements WebApplicationInitializer {
 	 */
 	public static Session getSession(HttpServletRequest request) {
 		if (conn == null) {
-			if (LOG.isDebugEnabled()) LOG.debug("Attempting to reconnect to Variant schema [" + schemaURL + "]");
+			if (LOG.isDebugEnabled()) LOG.debug("Attempting to reconnect to Variant schema [" + variantURL + "]");
 			connect();
 		}
 		return conn == null ? null : conn.getOrCreateSession(request); 
@@ -50,12 +50,12 @@ public class VariantContext implements WebApplicationInitializer {
 	 */
 	private static void connect() {
 		try {
-			conn = client.connectTo(schemaURL);
-			LOG.info("Connected to Variant URL [" + schemaURL + "]");
+			conn = client.connectTo(variantURL);
+			LOG.info("Connected to Variant URL [" + variantURL + "]");
 		}
 		catch (VariantException vex) {
 			LOG.error(
-					"Failed to connect to Variant URL [" + schemaURL + "]", vex);
+					"Failed to connect to Variant URL [" + variantURL + "]", vex);
 		}		
 	}
  }
