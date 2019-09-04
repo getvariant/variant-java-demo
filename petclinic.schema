@@ -58,7 +58,7 @@
             },                                               
             {                                                
                'name':'withLink',
-               'weight':3                                   
+               'weight':1                                   
             }                                              
          ],                                                  
          'onStates':[

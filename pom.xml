@@ -21,7 +21,7 @@
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <variant.version>0.10.0</variant.version>
+        <variant.version>0.10.1</variant.version>
     	        
 		<!-- Spring -->
 		<spring-io-platform.version>1.1.3.RELEASE</spring-io-platform.version>
@@ -93,31 +93,7 @@
          <scope>system</scope>
          <systemPath>${project.basedir}/lib/variant-core-${variant.version}.jar</systemPath>
       </dependency>
-<!--
-       <dependency>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpclient</artifactId>
-          <version>4.5.1</version>
-        </dependency>        
-
-      <dependency>
-         <groupId>org.apache.commons</groupId>
-	 <artifactId>commons-lang3</artifactId>
-	 <version>3.4</version>
-      </dependency>
-
-      <dependency>
-         <groupId>org.slf4j</groupId>
-	     <artifactId>slf4j-api</artifactId>
-         <version>1.7.12</version>
-      </dependency>
-
-      <dependency>
-         <groupId>org.apache.commons</groupId>
-         <artifactId>commons-collections4</artifactId>
-         <version>4.0</version>
-      </dependency> 
--->
+      
       <!-- End of Variant dependencies -->		
 
 		<dependency>

@@ -33,7 +33,7 @@ PetClinic :: a Spring Framework demonstration
     <%--                             Variant Demo start                              --%>
     <%-- --------------------------------------------------------------------------- --%>
     
-    <script src="http://getvariant.com/js/variant-0.9.0.js"></script>
+    <%-- <script src="http://getvariant.com/js/variant-0.9.0.js"></script> 
 
     <%@ page import="com.variant.client.StateRequest" %>
     <%@ page import="com.variant.client.Session" %>
@@ -71,6 +71,8 @@ PetClinic :: a Spring Framework demonstration
 
     <% } %>    
 
+    --%>
+    
     <%-- --------------------------------------------------------------------------- --%>
     <%--                              Variant Demo end                               --%>
     <%-- --------------------------------------------------------------------------- --%>
