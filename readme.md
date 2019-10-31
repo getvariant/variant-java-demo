@@ -1,6 +1,6 @@
 ![Variant Logo](http://www.getvariant.com/wp-content/uploads/2016/07/VariantLogoSquare-100.png)
 
-# Variant Experience Server Demo Application
+# Variant Application Iteration Server Demo Application
 #### Requires: 
 * [Variant Java Client 0.10](https://www.getvariant.com/resources/docs/0-10/clients/variant-java-client/)
 * [Variant AIM Server 0.10](http://www.getvariant.com/resources/docs/0-10/application-iteration-server/user-guide/) 
